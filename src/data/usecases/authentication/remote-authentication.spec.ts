@@ -5,7 +5,6 @@ import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { HttpStatusCode } from '@/data/protocols/http';
 import { AuthenticationParams } from '@/domain/usecases';
 import { AccountModel } from '@/domain/model';
-
 import faker from '@faker-js/faker';
 
 type SutTypes = {
