@@ -3,3 +3,4 @@ coverage
 husky
 .vscode
 public
+webpack.config.js
