@@ -26,5 +26,7 @@
         "@typescript-eslint/strict-boolean-expressions":"off",
         "semi": ["error", "always"],
         "no-unused-vars": "off"
+        // "react/jsx-users-react": "error",
+        // "react/jsx-users-vars": "error"
     }
 }
