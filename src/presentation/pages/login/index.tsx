@@ -1,7 +1,6 @@
 import React from 'react';
 import { Footer, Input, FormStatus, Header } from '@/presentation/components';
 
-import '../../styles/global-styles.scss';
 import Styles from './login-styles.scss';
 
 const Login: React.FC = () => {
