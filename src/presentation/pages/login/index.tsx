@@ -1,8 +1,5 @@
 import React from 'react';
-import Header from '@/presentation/components/login-header/login-header';
-import Footer from '@/presentation/components/footer/footer';
-import Input from '@/presentation/components/Input/input';
-import FormStatus from '@/presentation/components/form-status/form-status';
+import { Footer, Input, FormStatus, Header } from '@/presentation/components';
 
 import '../../styles/global-styles.scss';
 import Styles from './login-styles.scss';
