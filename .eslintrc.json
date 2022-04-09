@@ -28,6 +28,7 @@
         "no-unused-vars": "off",
         // "react/jsx-users-react": "error",
         // "react/jsx-users-vars": "error",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "react/prop-types": "off"
     }
 }
