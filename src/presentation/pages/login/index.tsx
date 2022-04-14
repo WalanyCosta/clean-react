@@ -21,8 +21,8 @@ const Login: React.FC = () => {
       <Context.Provider value={state}>
         <form className={Styles.form}>
           <h2>Login</h2>
-            <Input type="email" name="email" placeholder="Digite o seu email" />
-            <Input type="password" name="password" placeholder="Digite o sua senha" />
+          <Input type="email" name="email" placeholder="Digite o seu email" />
+          <Input type="password" name="password" placeholder="Digite o sua senha" />
           <button className={Styles.submit} type="submit">Entrar</button>
           <span className={Styles.link}>Criar conta</span>
           <FormStatus />
