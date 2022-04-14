@@ -12,6 +12,10 @@
     "noEmit": true,
     "rootDir": "src",
     "baseUrl": "src",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/main/config"
+    ],
     "paths":{
       "@/*": ["*"]
     },
