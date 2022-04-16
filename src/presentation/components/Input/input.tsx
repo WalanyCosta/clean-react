@@ -6,7 +6,7 @@ type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>
 
 const Input: React.FC<Props> = (props: Props) => {
   const { state, setState } = useContext(Context);
-  const value = state[`${props.name}Error`];
+  const error = state[`${props.name}Error`];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
     setState({
@@ -16,11 +16,11 @@ const Input: React.FC<Props> = (props: Props) => {
   };
 
   const getTitle = (): string => {
-    return value;
+    return error || 'tudo certo';
   };
 
   const getStatus = (): string => {
-    return '🔴';
+    return error ? '🔴' : '🟢';
   };
 
   return (
