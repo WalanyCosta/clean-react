@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Footer, Input, FormStatus, Header } from '@/presentation/components';
 import { Context } from '@/presentation/context/form/form-context';
+import { Authentication } from '@/domain/usecases';
+import { Validation } from '@/presentation/protocols/validation';
 
 import Styles from './login-styles.scss';
-import { Validation } from '@/presentation/protocols/validation';
-import { Authentication } from '@/domain/usecases';
 
 type Props = {
   validation?: Validation;
@@ -67,7 +68,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
           >
             Entrar
           </button>
-          <span className={Styles.link}>Criar conta</span>
+          <Link to='/signUp' data-testid='register' className={Styles.link}>Criar conta</Link>
           <FormStatus />
         </form>
       </Context.Provider>
