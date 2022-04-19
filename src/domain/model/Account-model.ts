@@ -1,3 +1,3 @@
 export type AccountModel = {
-    accessTokes: String;
+    accessTokes: string;
 }
