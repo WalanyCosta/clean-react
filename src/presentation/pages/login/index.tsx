@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Footer, Input, FormStatus, Header } from '@/presentation/components';
 import { Context } from '@/presentation/context/form/form-context';
 import { Authentication } from '@/domain/usecases';
@@ -13,6 +13,7 @@ type Props = {
 }
 
 const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+  const navegate = useNavigate();
   const [state, setState] = useState({
     isLoading: false,
     emailError: '',
@@ -41,8 +42,8 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         email: state.email,
         password: state.password
       });
-
       localStorage.setItem('accessToken', account.accessTokes);
+      navegate('/', { replace: true });
     } catch (error) {
       setState({
         ...state,
