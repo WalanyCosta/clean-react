@@ -61,7 +61,7 @@ const populatePasswordField = (sut: RenderResult, password = faker.internet.pass
   });
 };
 
-const simuteStatusForField = (sut: RenderResult, fieldName, validationError = null) : void => {
+const testStatusForField = (sut: RenderResult, fieldName, validationError = null) : void => {
   const fieldStatus = sut.getByTestId(`${fieldName}-status`);
   expect(fieldStatus.title).toBe(validationError || 'tudo certo');
   expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢');
@@ -80,34 +80,34 @@ describe('Login Component', () => {
     expect(errorWrap.childElementCount).toBe(0);
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
     expect(submitButton.disabled).toBeTruthy();
-    simuteStatusForField(sut, 'email', validationError);
-    simuteStatusForField(sut, 'password', validationError);
+    testStatusForField(sut, 'email', validationError);
+    testStatusForField(sut, 'password', validationError);
   });
 
   test('should show email error if validation fails', () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
     populateEmailField(sut);
-    simuteStatusForField(sut, 'email', validationError);
+    testStatusForField(sut, 'email', validationError);
   });
 
   test('should show password error if validation fails', () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
     populatePasswordField(sut);
-    simuteStatusForField(sut, 'password', validationError);
+    testStatusForField(sut, 'password', validationError);
   });
 
   test('should show valid email state if validation succeeds', () => {
     const { sut } = makeSut();
     populateEmailField(sut);
-    simuteStatusForField(sut, 'email');
+    testStatusForField(sut, 'email');
   });
 
   test('should show valid password state if validation succeeds', () => {
     const { sut } = makeSut();
     populatePasswordField(sut);
-    simuteStatusForField(sut, 'password');
+    testStatusForField(sut, 'password');
   });
 
   test('should enable submit button if form is valid', () => {
