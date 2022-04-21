@@ -67,6 +67,21 @@ const testStatusForField = (sut: RenderResult, fieldName, validationError = null
   expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢');
 };
 
+const testElementExist = (sut: RenderResult, fieldName) : void => {
+  const field = sut.getByTestId(fieldName);
+  expect(field).toBeTruthy();
+};
+
+const testButtonDisable = (sut: RenderResult, fieldName) : void => {
+  const submitButton = sut.getByTestId(fieldName) as HTMLButtonElement;
+  expect(submitButton.disabled).toBeTruthy();
+};
+
+const testButtonNotDisable = (sut: RenderResult, fieldName) : void => {
+  const submitButton = sut.getByTestId(fieldName) as HTMLButtonElement;
+  expect(submitButton.disabled).toBeFalsy();
+};
+
 describe('Login Component', () => {
   afterEach(cleanup);
   beforeEach(() => {
@@ -78,8 +93,7 @@ describe('Login Component', () => {
     const { sut } = makeSut({ validationError });
     const errorWrap = sut.getByTestId('errorWrap');
     expect(errorWrap.childElementCount).toBe(0);
-    const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
-    expect(submitButton.disabled).toBeTruthy();
+    testButtonDisable(sut, 'submit');
     testStatusForField(sut, 'email', validationError);
     testStatusForField(sut, 'password', validationError);
   });
@@ -114,15 +128,13 @@ describe('Login Component', () => {
     const { sut } = makeSut();
     populateEmailField(sut);
     populatePasswordField(sut);
-    const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
-    expect(submitButton.disabled).toBeFalsy();
+    testButtonNotDisable(sut, 'submit');
   });
 
   test('should show spinner on submit', () => {
     const { sut } = makeSut();
     simulateValidSubmit(sut);
-    const spinner = sut.getByTestId('spinner-status');
-    expect(spinner).toBeTruthy();
+    testElementExist(sut, 'spinner-status');
   });
 
   test('should call Authentication with correct values', () => {
