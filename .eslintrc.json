@@ -30,6 +30,7 @@
         // "react/jsx-users-react": "error",
         // "react/jsx-users-vars": "error",
         "no-use-before-define": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "no-useless-escape": "off"
     }
 }
