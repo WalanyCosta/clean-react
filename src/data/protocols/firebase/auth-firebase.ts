@@ -1,5 +1,6 @@
 import { AuthenticationParams } from '@/domain/usecases';
+import { Response } from './response';
 
-export interface AuthFirebase {
-  authFirebase(param: AuthenticationParams): Promise<void>;
+export interface AuthFirebase <T>{
+  authFirebase(param: AuthenticationParams): Promise<Response<T>>;
 }
