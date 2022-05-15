@@ -2,7 +2,7 @@ import { StatusCode } from '@/data/protocols/firebase/response';
 import { AuthWithEmailAndPasswordSpy } from '@/data/test/mock-auth-with-email-and-password';
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/model';
-import { mockAuthentication } from '@/domain/test';
+import { mockAccount, mockAuthentication } from '@/domain/test';
 import { RemoteAuthenticationFirebase } from './remote-authentication-firebase';
 
 type SutTypes ={
@@ -47,5 +47,16 @@ describe('RemoteAuthenticationFirebase', () => {
     };
     const promise = sut.auth(mockAuthentication());
     await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('should returns an AccountModel if AuthFirebase returns 200', async () => {
+    const { sut, authWithEmailAndPasswordSpy } = makeSut();
+    const response = mockAccount();
+    authWithEmailAndPasswordSpy.response = {
+      statusCode: StatusCode.ok,
+      body: response
+    };
+    const account = await sut.auth(mockAuthentication());
+    expect(account).toBe(response);
   });
 });
