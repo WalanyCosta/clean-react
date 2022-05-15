@@ -1,6 +1,6 @@
 import { StatusCode } from '@/data/protocols/firebase/response';
 import { AuthWithEmailAndPasswordSpy } from '@/data/test/mock-auth-with-email-and-password';
-import { InvalidCredentialsError } from '@/domain/errors';
+import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/model';
 import { mockAuthentication } from '@/domain/test';
 import { RemoteAuthenticationFirebase } from './remote-authentication-firebase';
@@ -38,5 +38,14 @@ describe('RemoteAuthenticationFirebase', () => {
     };
     const promise = sut.auth(mockAuthentication());
     await expect(promise).rejects.toThrow(new InvalidCredentialsError());
+  });
+
+  test('should throw ServerError AuthFirebase returns 500 ', async () => {
+    const { sut, authWithEmailAndPasswordSpy } = makeSut();
+    authWithEmailAndPasswordSpy.response = {
+      statusCode: StatusCode.serverError
+    };
+    const promise = sut.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });
