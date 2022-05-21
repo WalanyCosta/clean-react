@@ -37,6 +37,8 @@ const mockedResult = (object): Response<any> => ({
   body: object
 });
 
+const mockedResultReject = { statusCode: 500 };
+
 describe('AuthWithEmailAndPassword', () => {
   test('should calls signInWithEmailAndPassword with correct values', async () => {
     const authParams = mockAuthentication();
@@ -50,5 +52,15 @@ describe('AuthWithEmailAndPassword', () => {
     const { sut, object } = makeSut();
     const promise = sut.authFirebase(authParams);
     expect(promise).toEqual(Promise.resolve(mockedResult(object)));
+  });
+
+  test('should return code', async () => {
+    const authParams = mockAuthentication();
+    const { sut, mockedSignIn } = makeSut();
+    mockedSignIn.mockRejectedValue({
+      code: 500
+    });
+    const promise = await sut.authFirebase(authParams);
+    expect(promise).toEqual(mockedResultReject);
   });
 });
