@@ -14,13 +14,13 @@ jest.mock('firebase/auth', () => {
 type SutTypes ={
   sut: AuthWithEmailAndPassword;
   mockedSignIn: jest.Mock<any, any>;
-  object: string | number;
+  object: any;
 }
 
 const makeSut = () : SutTypes => {
   const mockedSignIn = signInWithEmailAndPassword as jest.Mock<any, any>;
   const sut = new AuthWithEmailAndPassword();
-  const object = faker.random.objectElement({ keyA: 'may', keyB: 42 });
+  const object = jest.fn(() => faker.random.alphaNumeric());
   mockedSignIn.mockResolvedValue({
     user: object
   });
