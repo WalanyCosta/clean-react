@@ -10,9 +10,10 @@ export class RemoteAuthenticationFirebase implements Authentication {
   async auth (params: AuthenticationParams): Promise<AccountModel> {
     const response = await this.authFirebase.authFirebase(params);
     switch (response.statusCode) {
+      case StatusCode.ok: return response.body;
       case StatusCode.unauthorized: throw new InvalidCredentialsError();
-      case StatusCode.serverError: throw new UnexpectedError();
-      default: return response.body;
+      case StatusCode.unauthorizedUser: throw new InvalidCredentialsError();
+      default: throw new UnexpectedError();
     }
   }
 }
