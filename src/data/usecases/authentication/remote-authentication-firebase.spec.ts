@@ -1,4 +1,4 @@
-import { StatusCode } from '@/data/protocols/firebase/response';
+import { StatusCode } from '@/data/protocols/firebase';
 import { AuthWithEmailAndPasswordSpy } from '@/data/test/mock-auth-with-email-and-password';
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/model';
@@ -47,6 +47,15 @@ describe('RemoteAuthenticationFirebase', () => {
     };
     const promise = sut.auth(mockAuthentication());
     await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('should throw UnauthorizedUser AuthFirebase returns 401', async () => {
+    const { sut, authWithEmailAndPasswordSpy } = makeSut();
+    authWithEmailAndPasswordSpy.response = {
+      statusCode: StatusCode.unauthorizedUser
+    };
+    const promise = sut.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow(new InvalidCredentialsError());
   });
 
   test('should returns an AccountModel if AuthFirebase returns 200', async () => {
