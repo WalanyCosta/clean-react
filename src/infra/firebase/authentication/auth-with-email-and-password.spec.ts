@@ -1,6 +1,6 @@
 import { mockAuthentication } from '@/domain/test';
 import faker from '@faker-js/faker';
-import { getAuth, signInWithEmailAndPassword, User } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { AuthWithEmailAndPassword } from './auth-with-email-and-password';
 import { Response } from '@/data/protocols/firebase';
 

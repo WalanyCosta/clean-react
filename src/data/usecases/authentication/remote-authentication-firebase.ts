@@ -1,8 +1,7 @@
-import { AuthFirebase } from '@/data/protocols/firebase/auth-firebase';
-import { StatusCode } from '@/data/protocols/firebase/response';
+import { StatusCode, AuthFirebase } from '@/data/protocols/firebase';
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
-import { AccountModel } from '@/domain/model';
 import { Authentication, AuthenticationParams } from '@/domain/usecases';
+import { AccountModel } from '@/domain/model';
 
 export class RemoteAuthenticationFirebase implements Authentication {
   constructor (readonly authFirebase: AuthFirebase<AccountModel>) {}
