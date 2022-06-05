@@ -10,7 +10,8 @@
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "check":"npm-check -s -u"
   },
   "keywords": [],
   "author": "",
@@ -40,7 +41,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-react": "^7.29.4",
-    "git-commit-msg-linter": "^4.1.1",
+    "git-commit-msg-linter": "^4.1.3",
     "husky": "^7.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
@@ -60,7 +61,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
-    "firebase": "^9.8.1",
+    "firebase": "^9.8.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0"
