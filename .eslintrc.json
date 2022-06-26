@@ -6,7 +6,7 @@
         "browser": true
     },
     "extends": [
-        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
         "standard"
     ],
     "parser": "@typescript-eslint/parser",

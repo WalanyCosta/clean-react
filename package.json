@@ -11,7 +11,7 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
     "prepare": "husky install",
-    "check":"npm-check -s -u"
+    "check": "npm-check -s -u"
   },
   "keywords": [],
   "author": "",
@@ -40,7 +40,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
-    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react": "^7.30.1",
     "git-commit-msg-linter": "^4.1.3",
     "husky": "^7.0.4",
     "identity-obj-proxy": "^3.0.0",
