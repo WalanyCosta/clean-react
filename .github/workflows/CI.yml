@@ -27,10 +27,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npx eslint "src/**"
-    - run: npm run test:ci
+    - run: | 
+          npm run test:ci
+          make test-coverage
     
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@1.1.3
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-    - run: make test-coverage
