@@ -2,8 +2,7 @@
 <img src="https://img.shields.io/badge/License-MIT-green"/>
 <img src="https://img.shields.io/badge/build-passing-green"/>
 
-___
-<div style="width: 100%; display: flex; justify-content: center; margin: 24px 0 32px;">
+<div align="center">
   <img src="public/img/logo.png"/>
 </div>
 
@@ -31,6 +30,3 @@ ___
 ### Features
 
 - [x] Login
-- [] Registar usuário
-- [] Consultar enquentes
-- [] Adicionar enquentes
