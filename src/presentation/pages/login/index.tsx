@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Footer, Input, FormStatus, Header } from '@/presentation/components';
 import { Context } from '@/presentation/context/form/form-context';
-import { Authentication } from '@/domain/usecases';
+import { Authentication, SaveAccessToken } from '@/domain/usecases';
 import { Validation } from '@/presentation/protocols/validation';
 
 import Styles from './login-styles.scss';
@@ -10,9 +10,10 @@ import Styles from './login-styles.scss';
 type Props = {
   validation: Validation;
   authentication: Authentication;
+  saveAccessToken?: SaveAccessToken;
 }
 
-const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }: Props) => {
   const navegate = useNavigate();
   const [state, setState] = useState({
     isLoading: false,
@@ -42,7 +43,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         email: state.email,
         password: state.password
       });
-      localStorage.setItem('accessToken', account.accessTokes);
+      saveAccessToken.save(account.accessTokes);
       navegate('/', { replace: true });
     } catch (error) {
       setState({
