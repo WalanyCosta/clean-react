@@ -10,7 +10,7 @@ import Styles from './login-styles.scss';
 type Props = {
   validation: Validation;
   authentication: Authentication;
-  saveAccessToken?: SaveAccessToken;
+  saveAccessToken: SaveAccessToken;
 }
 
 const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }: Props) => {
