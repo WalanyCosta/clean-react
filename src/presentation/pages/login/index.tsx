@@ -43,7 +43,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
         email: state.email,
         password: state.password
       });
-      saveAccessToken.save(account.accessTokes);
+      await saveAccessToken.save(account.accessTokes);
       navegate('/', { replace: true });
     } catch (error) {
       setState({
