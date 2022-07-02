@@ -176,12 +176,24 @@ describe('Login Component', () => {
     });
   });
 
-  test.only('should calls SaveAccessToKen on success', async () => {
+  test('should calls SaveAccessToKen on success', async () => {
     const { sut, authenticationSpy, saveAccessTokenMock } = makeSut();
     simulateValidSubmit(sut);
     await waitFor(() => {
       expect(saveAccessTokenMock.value).toBe(authenticationSpy.account.accessTokes);
       expect(history.location.pathname).toBe('/');
+    });
+  });
+
+  test('should present error if SaveAccessToKen fails', async () => {
+    const error = new InvalidCredentialsError();
+    const { sut, saveAccessTokenMock } = makeSut();
+    jest.spyOn(saveAccessTokenMock, 'save').mockReturnValueOnce(Promise.reject(error));
+    simulateValidSubmit(sut);
+    const errorWrap = sut.getByTestId('errorWrap');
+    await waitFor(() => {
+      expect(sut.getByTestId('mainError').textContent).toBe(error.message);
+      expect(errorWrap.childElementCount).toBe(1);
     });
   });
 
