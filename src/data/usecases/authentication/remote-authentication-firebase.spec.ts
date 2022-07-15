@@ -1,5 +1,5 @@
 import { StatusCode } from '@/data/protocols/firebase';
-import { AuthWithEmailAndPasswordSpy } from '@/data/test/mock-auth-with-email-and-password';
+import { AuthWithEmailAndPasswordSpy } from '@/data/test/mock-authentication';
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/model';
 import { mockAccount, mockAuthentication } from '@/domain/test';
