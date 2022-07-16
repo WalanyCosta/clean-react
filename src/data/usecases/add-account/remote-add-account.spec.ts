@@ -1,5 +1,5 @@
 import { AccountModel } from '@/domain/model';
-import { mockAddAccount } from '@/domain/test';
+import { mockAccount, mockAddAccount } from '@/domain/test';
 import { CreateUserSpy } from '@/data/test';
 import { RemoteAddAccount } from './remote-add-account';
 import { StatusCode } from '@/data/protocols/firebase';
@@ -35,7 +35,7 @@ describe('RemoteAddAccount', () => {
     });
   });
 
-  test('should throw EmailInUseError AddAccounts returns createUser/user-exists', async () => {
+  test('should throw EmailInUseError CreateUser returns createUser/user-exists', async () => {
     const { sut, createUserSpy } = makeSut();
     createUserSpy.response = {
       statusCode: StatusCode.forbidden
@@ -44,12 +44,23 @@ describe('RemoteAddAccount', () => {
     await expect(promise).rejects.toThrow(new EmailInUseError());
   });
 
-  test('should throw ServerError AuthFirebase returns 500 ', async () => {
+  test('should throw ServerError CreateUser returns 500 ', async () => {
     const { sut, createUserSpy } = makeSut();
     createUserSpy.response = {
       statusCode: StatusCode.serverError
     };
     const promise = sut.add(mockAddAccount());
     await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('should returns an AccountModel if CreateUser returns 200', async () => {
+    const { sut, createUserSpy } = makeSut();
+    const response = mockAccount();
+    createUserSpy.response = {
+      statusCode: StatusCode.ok,
+      body: response
+    };
+    const account = await sut.add(mockAddAccount());
+    expect(account).toBe(response);
   });
 });
