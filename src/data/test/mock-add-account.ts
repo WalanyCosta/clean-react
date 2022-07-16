@@ -4,8 +4,9 @@ import { Response } from '@/data/protocols/firebase';
 
 export class CreateUserSpy<T> implements CreateUser<T> {
     param: AddAccountParam;
+    response: Response<T>
     async signUp (param: AddAccountParam): Promise<Response<T>> {
       this.param = param;
-      return null;
+      return this.response;
     }
 }
