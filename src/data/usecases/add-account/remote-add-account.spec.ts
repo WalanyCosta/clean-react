@@ -4,32 +4,29 @@ import { CreateUserSpy } from '@/data/test';
 import { RemoteAddAccount } from './remote-add-account';
 import { StatusCode } from '@/data/protocols/firebase';
 import { EmailInUseError } from '@/domain/errors/email-in-use-error';
-import { AddAccountParam } from '@/domain/usecases';
+import { UnexpectedError } from '@/domain/errors';
 
 type SutType ={
   sut: RemoteAddAccount,
   createUserSpy: CreateUserSpy<AccountModel>,
-  addAccountParam: AddAccountParam
 };
 
 const makeSut = ():SutType => {
   const createUserSpy = new CreateUserSpy<AccountModel>();
-  const addAccountParam = mockAddAccount();
   createUserSpy.response = {
     statusCode: StatusCode.ok
   };
   const sut = new RemoteAddAccount(createUserSpy);
-
   return {
     sut,
-    createUserSpy,
-    addAccountParam
+    createUserSpy
   };
 };
 
 describe('RemoteAddAccount', () => {
   test('should call CreateUser with correct params', async () => {
-    const { sut, createUserSpy, addAccountParam } = makeSut();
+    const { sut, createUserSpy } = makeSut();
+    const addAccountParam = mockAddAccount();
     await sut.add(addAccountParam);
     expect(createUserSpy.param).toEqual({
       email: addAccountParam.email,
@@ -39,11 +36,20 @@ describe('RemoteAddAccount', () => {
   });
 
   test('should throw EmailInUseError AddAccounts returns createUser/user-exists', async () => {
-    const { sut, createUserSpy, addAccountParam } = makeSut();
+    const { sut, createUserSpy } = makeSut();
     createUserSpy.response = {
       statusCode: StatusCode.forbidden
     };
-    const promise = sut.add(addAccountParam);
+    const promise = sut.add(mockAddAccount());
     await expect(promise).rejects.toThrow(new EmailInUseError());
+  });
+
+  test('should throw ServerError AuthFirebase returns 500 ', async () => {
+    const { sut, createUserSpy } = makeSut();
+    createUserSpy.response = {
+      statusCode: StatusCode.serverError
+    };
+    const promise = sut.add(mockAddAccount());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });
