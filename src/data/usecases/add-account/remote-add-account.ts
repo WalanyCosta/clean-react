@@ -1,5 +1,5 @@
 import { CreateUser, StatusCode } from '@/data/protocols/firebase';
-import { EmailInUseError } from '@/domain/errors';
+import { EmailInUseError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/model';
 import { AddAccount, AddAccountParam } from '@/domain/usecases';
 
@@ -10,7 +10,8 @@ export class RemoteAddAccount implements AddAccount {
     const response = await this.createUser.signUp(param);
     switch (response.statusCode) {
       case StatusCode.forbidden: throw new EmailInUseError();
-      default: return response.body;
+      case StatusCode.ok: return response.body;
+      default: throw new UnexpectedError();
     };
   }
 }
