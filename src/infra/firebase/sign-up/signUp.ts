@@ -5,10 +5,16 @@ import { app } from '../firebaseConfig';
 
 export class SignUp implements CreateUser<any> {
   async signUp (param: AddAccountParam): Promise<Response<any>> {
-    const response = await createUserWithEmailAndPassword(getAuth(app), param.email, param.password);
-    return {
-      statusCode: 200,
-      body: response.user
-    };
+    try {
+      const response = await createUserWithEmailAndPassword(getAuth(app), param.email, param.password);
+      return {
+        statusCode: 200,
+        body: response.user
+      };
+    } catch (error) {
+      return {
+        statusCode: error?.code
+      };
+    }
   }
-}
+};
