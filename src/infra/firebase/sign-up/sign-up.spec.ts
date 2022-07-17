@@ -12,6 +12,27 @@ jest.mock('firebase/auth', () => {
   };
 });
 
+type SutType ={
+  sut: SignUp;
+  mockedCreateUser: jest.Mock<any, any>;
+  object: any;
+}
+
+const makeSut = (): SutType => {
+  const mockedCreateUser = createUserWithEmailAndPassword as jest.Mock<any, any>;
+  const object = jest.fn(() => faker.random.alphaNumeric());
+  const sut = new SignUp();
+  mockedCreateUser.mockResolvedValue({
+    user: object
+  });
+
+  return {
+    sut,
+    mockedCreateUser,
+    object
+  };
+};
+
 const mockedResult = (object): Response<any> => ({
   statusCode: 200,
   body: object
@@ -19,12 +40,7 @@ const mockedResult = (object): Response<any> => ({
 
 describe('SignUp', () => {
   test('should calls createUserWithEmailAndPassword with correct values', async () => {
-    const mockedCreateUser = createUserWithEmailAndPassword as jest.Mock<any, any>;
-    const object = jest.fn(() => faker.random.alphaNumeric());
-    mockedCreateUser.mockResolvedValue({
-      user: object
-    });
-    const sut = new SignUp();
+    const { sut, mockedCreateUser } = makeSut();
     const addAccountParam = mockAddAccount();
     await sut.signUp(addAccountParam);
     expect(mockedCreateUser).toHaveBeenCalledWith(
@@ -34,23 +50,17 @@ describe('SignUp', () => {
   });
 
   test('should return the correct statusCode and body', async () => {
-    const mockedCreateUser = createUserWithEmailAndPassword as jest.Mock<any, any>;
-    const object = jest.fn(() => faker.random.alphaNumeric());
-    mockedCreateUser.mockResolvedValue({
-      user: object
-    });
-    const sut = new SignUp();
+    const { sut, object } = makeSut();
     const promise = sut.signUp(mockAddAccount());
     expect(promise).toEqual(Promise.resolve(mockedResult(object)));
   });
 
   test('should return code', async () => {
-    const mockedCreateUser = createUserWithEmailAndPassword as jest.Mock<any, any>;
+    const { sut, mockedCreateUser } = makeSut();
     const mockedResultReject = { statusCode: 500 };
     mockedCreateUser.mockRejectedValue({
       code: 500
     });
-    const sut = new SignUp();
     const promise = await sut.signUp(mockAddAccount());
     expect(promise).toEqual(mockedResultReject);
   });
