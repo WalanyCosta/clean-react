@@ -43,4 +43,15 @@ describe('SignUp', () => {
     const promise = sut.signUp(mockAddAccount());
     expect(promise).toEqual(Promise.resolve(mockedResult(object)));
   });
+
+  test('should return code', async () => {
+    const mockedCreateUser = createUserWithEmailAndPassword as jest.Mock<any, any>;
+    const mockedResultReject = { statusCode: 500 };
+    mockedCreateUser.mockRejectedValue({
+      code: 500
+    });
+    const sut = new SignUp();
+    const promise = await sut.signUp(mockAddAccount());
+    expect(promise).toEqual(mockedResultReject);
+  });
 });
