@@ -1,7 +1,7 @@
 import { InvalidFieldError } from '@/validation/errors';
 import { FieldValidation } from '@/validation/protocols/field-validation';
 
-export class CompareFIeldValidation implements FieldValidation {
+export class CompareFieldValidation implements FieldValidation {
   constructor (
     readonly field: string,
     private readonly valueToCompare: string) {

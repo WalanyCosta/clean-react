@@ -1,9 +1,9 @@
 import { InvalidFieldError } from '@/validation/errors';
 import faker from '@faker-js/faker';
-import { CompareFIeldValidation } from './compare-fields-validation';
+import { CompareFieldValidation } from './compare-fields-validation';
 
-const makeSut = (valueToCompare): CompareFIeldValidation => {
-  return new CompareFIeldValidation(faker.database.column(), valueToCompare);
+const makeSut = (valueToCompare): CompareFieldValidation => {
+  return new CompareFieldValidation(faker.database.column(), valueToCompare);
 };
 
 describe('CompareFieldValidation', () => {
