@@ -1,5 +1,5 @@
-import { RequiredFieldValidation, EmailValidation, MinLengthValidation } from '@/validation/validators';
 import faker from '@faker-js/faker';
+import { RequiredFieldValidation, EmailValidation, MinLengthValidation, CompareFieldValidation } from '@/validation/validators';
 import { ValidationBuilder } from './validation-builder';
 
 describe('ValidationBuilder', () => {
@@ -21,13 +21,22 @@ describe('ValidationBuilder', () => {
     expect(validations).toEqual([new MinLengthValidation(field, 5)]);
   });
 
+  test('should returns CompareFieldsValidation', () => {
+    const field = faker.database.column();
+    const valueToCompare = faker.random.word();
+    const validations = ValidationBuilder.field(field).toCompare(valueToCompare).build();
+    expect(validations).toEqual([new CompareFieldValidation(field, valueToCompare)]);
+  });
+
   test('should returns List', () => {
     const field = faker.database.column();
-    const validations = ValidationBuilder.field(field).required().email().min(5).build();
+    const valueToCompare = faker.random.word();
+    const validations = ValidationBuilder.field(field).required().email().min(5).toCompare(valueToCompare).build();
     expect(validations).toEqual([
       new RequiredFieldValidation(field),
       new EmailValidation(field),
-      new MinLengthValidation(field, 5)
+      new MinLengthValidation(field, 5),
+      new CompareFieldValidation(field, valueToCompare)
     ]);
   });
 });
