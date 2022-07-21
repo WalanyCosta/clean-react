@@ -27,6 +27,11 @@ const makeSut = (params?: SutParams) : SutTypes => {
   };
 };
 
+const testButtonNotDisable = (sut: RenderResult, fieldName) : void => {
+  const submitButton = sut.getByTestId(fieldName) as HTMLButtonElement;
+  expect(submitButton.disabled).toBeFalsy();
+};
+
 describe('SignUp Component', () => {
   afterEach(cleanup);
 
@@ -77,5 +82,12 @@ describe('SignUp Component', () => {
     const { sut } = makeSut();
     helper.populateField(sut, 'passwordConfirmation');
     helper.testStatusForField(sut, 'passwordConfirmation');
+  });
+
+  test('should enable submit button if form is valid', () => {
+    const { sut } = makeSut();
+    helper.populateField(sut, 'email');
+    helper.populateField(sut, 'password');
+    testButtonNotDisable(sut, 'submit');
   });
 });
