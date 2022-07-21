@@ -60,4 +60,22 @@ describe('SignUp Component', () => {
     helper.populateField(sut, 'passwordConfirmation');
     helper.testStatusForField(sut, 'passwordConfirmation', validationError);
   });
+
+  test('should show valid email state if validation succeeds', () => {
+    const { sut } = makeSut();
+    helper.populateField(sut, 'email');
+    helper.testStatusForField(sut, 'email');
+  });
+
+  test('should show valid password state if validation succeeds', () => {
+    const { sut } = makeSut();
+    helper.populateField(sut, 'password');
+    helper.testStatusForField(sut, 'password');
+  });
+
+  test('should show valid passwordConfirmation state if validation succeeds', () => {
+    const { sut } = makeSut();
+    helper.populateField(sut, 'passwordConfirmation');
+    helper.testStatusForField(sut, 'passwordConfirmation');
+  });
 });
