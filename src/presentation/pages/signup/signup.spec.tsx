@@ -52,7 +52,7 @@ describe('SignUp Component', () => {
   test('should show email error if validation fails', () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    populateField(sut, 'email');
+    helper.populateField(sut, 'email');
     helper.testStatusForField(sut, 'email', validationError);
   });
 });
