@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import Login from './index';
-import { ValidationStub, AuthenticationSpy, SaveAccessTokenMock } from '@/presentation/test';
+import { ValidationStub, AuthenticationSpy, SaveAccessTokenMock, helper } from '@/presentation/test';
 import faker from '@faker-js/faker';
 import { InvalidCredentialsError } from '@/domain/errors';
 
@@ -66,20 +66,9 @@ const populatePasswordField = (sut: RenderResult, password = faker.internet.pass
   });
 };
 
-const testStatusForField = (sut: RenderResult, fieldName, validationError = null) : void => {
-  const fieldStatus = sut.getByTestId(`${fieldName}-status`);
-  expect(fieldStatus.title).toBe(validationError || 'tudo certo');
-  expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢');
-};
-
 const testElementExist = (sut: RenderResult, fieldName) : void => {
   const field = sut.getByTestId(fieldName);
   expect(field).toBeTruthy();
-};
-
-const testButtonDisable = (sut: RenderResult, fieldName) : void => {
-  const submitButton = sut.getByTestId(fieldName) as HTMLButtonElement;
-  expect(submitButton.disabled).toBeTruthy();
 };
 
 const testButtonNotDisable = (sut: RenderResult, fieldName) : void => {
@@ -93,37 +82,36 @@ describe('Login Component', () => {
   test('Should start with initial state', () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    const errorWrap = sut.getByTestId('errorWrap');
-    expect(errorWrap.childElementCount).toBe(0);
-    testButtonDisable(sut, 'submit');
-    testStatusForField(sut, 'email', validationError);
-    testStatusForField(sut, 'password', validationError);
+    helper.testChildCount(sut, 'errorWrap', 0);
+    helper.testButtonDisable(sut, 'submit');
+    helper.testStatusForField(sut, 'email', validationError);
+    helper.testStatusForField(sut, 'password', validationError);
   });
 
   test('should show email error if validation fails', () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
     populateEmailField(sut);
-    testStatusForField(sut, 'email', validationError);
+    helper.testStatusForField(sut, 'email', validationError);
   });
 
   test('should show password error if validation fails', () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
     populatePasswordField(sut);
-    testStatusForField(sut, 'password', validationError);
+    helper.testStatusForField(sut, 'password', validationError);
   });
 
   test('should show valid email state if validation succeeds', () => {
     const { sut } = makeSut();
     populateEmailField(sut);
-    testStatusForField(sut, 'email');
+    helper.testStatusForField(sut, 'email');
   });
 
   test('should show valid password state if validation succeeds', () => {
     const { sut } = makeSut();
     populatePasswordField(sut);
-    testStatusForField(sut, 'password');
+    helper.testStatusForField(sut, 'password');
   });
 
   test('should enable submit button if form is valid', () => {
