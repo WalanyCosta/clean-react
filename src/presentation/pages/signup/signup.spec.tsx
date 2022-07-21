@@ -46,4 +46,11 @@ describe('SignUp Component', () => {
     helper.populateField(sut, 'email');
     helper.testStatusForField(sut, 'email', validationError);
   });
+
+  test('should show password error if validation fails', () => {
+    const validationError = faker.random.words();
+    const { sut } = makeSut({ validationError });
+    helper.populateField(sut, 'password');
+    helper.testStatusForField(sut, 'password', validationError);
+  });
 });
