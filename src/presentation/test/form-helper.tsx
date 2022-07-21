@@ -25,3 +25,8 @@ export const populateField = (sut: RenderResult, field:string, value = faker.ran
     }
   });
 };
+
+export const testButtonNotDisable = (sut: RenderResult, fieldName) : void => {
+  const submitButton = sut.getByTestId(fieldName) as HTMLButtonElement;
+  expect(submitButton.disabled).toBeFalsy();
+};

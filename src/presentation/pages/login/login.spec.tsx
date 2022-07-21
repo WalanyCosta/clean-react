@@ -53,11 +53,6 @@ const testElementExist = (sut: RenderResult, fieldName) : void => {
   expect(field).toBeTruthy();
 };
 
-const testButtonNotDisable = (sut: RenderResult, fieldName) : void => {
-  const submitButton = sut.getByTestId(fieldName) as HTMLButtonElement;
-  expect(submitButton.disabled).toBeFalsy();
-};
-
 describe('Login Component', () => {
   afterEach(cleanup);
 
@@ -100,7 +95,7 @@ describe('Login Component', () => {
     const { sut } = makeSut();
     helper.populateField(sut, 'email');
     helper.populateField(sut, 'password');
-    testButtonNotDisable(sut, 'submit');
+    helper.testButtonNotDisable(sut, 'submit');
   });
 
   test('should show spinner on submit', () => {
