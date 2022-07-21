@@ -27,15 +27,6 @@ const makeSut = (params?: SutParams) : SutTypes => {
   };
 };
 
-const populateField = (sut: RenderResult, field:string, value = faker.random.word()): void => {
-  const input = sut.getByTestId(field);
-  fireEvent.input(input, {
-    target: {
-      value: value
-    }
-  });
-};
-
 describe('SignUp Component', () => {
   afterEach(cleanup);
 
