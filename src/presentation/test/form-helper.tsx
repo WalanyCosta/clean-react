@@ -30,3 +30,23 @@ export const testButtonNotDisable = (sut: RenderResult, fieldName) : void => {
   const submitButton = sut.getByTestId(fieldName) as HTMLButtonElement;
   expect(submitButton.disabled).toBeFalsy();
 };
+
+export const simulateValidSubmit = (sut: RenderResult, email?, password?) : void => {
+  populateField(sut, 'email', email);
+  populateField(sut, 'password', password);
+  const submitButton = sut.getByTestId('submit');
+  fireEvent.click(submitButton);
+};
+
+export const simulateValidSubmitSignUp = (sut: RenderResult, email?, password?, passwordConfirmation?) : void => {
+  populateField(sut, 'email', email);
+  populateField(sut, 'password', password);
+  populateField(sut, 'passwordConfirmation', passwordConfirmation);
+  const submitButton = sut.getByTestId('submit');
+  fireEvent.click(submitButton);
+};
+
+export const testElementExist = (sut: RenderResult, fieldName) : void => {
+  const field = sut.getByTestId(fieldName);
+  expect(field).toBeTruthy();
+};

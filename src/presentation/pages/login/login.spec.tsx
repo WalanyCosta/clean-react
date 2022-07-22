@@ -41,18 +41,6 @@ const makeSut = (params?: SutParams) : SutTypes => {
   };
 };
 
-const simulateValidSubmit = (sut: RenderResult, email?, password?) : void => {
-  helper.populateField(sut, 'email', email);
-  helper.populateField(sut, 'password', password);
-  const submitButton = sut.getByTestId('submit');
-  fireEvent.click(submitButton);
-};
-
-const testElementExist = (sut: RenderResult, fieldName) : void => {
-  const field = sut.getByTestId(fieldName);
-  expect(field).toBeTruthy();
-};
-
 describe('Login Component', () => {
   afterEach(cleanup);
 
@@ -100,15 +88,15 @@ describe('Login Component', () => {
 
   test('should show spinner on submit', () => {
     const { sut } = makeSut();
-    simulateValidSubmit(sut);
-    testElementExist(sut, 'spinner-status');
+    helper.simulateValidSubmit(sut);
+    helper.testElementExist(sut, 'spinner-status');
   });
 
   test('should call Authentication with correct values', () => {
     const { sut, authenticationSpy } = makeSut();
     const email = faker.internet.email();
     const password = faker.internet.password();
-    simulateValidSubmit(sut, email, password);
+    helper.simulateValidSubmit(sut, email, password);
     expect(authenticationSpy.params).toEqual({
       email,
       password
@@ -117,8 +105,8 @@ describe('Login Component', () => {
 
   test('should call Authentication only once', () => {
     const { sut, authenticationSpy } = makeSut();
-    simulateValidSubmit(sut);
-    simulateValidSubmit(sut);
+    helper.simulateValidSubmit(sut);
+    helper.simulateValidSubmit(sut);
     expect(authenticationSpy.callsCount).toBe(1);
   });
 
@@ -133,7 +121,7 @@ describe('Login Component', () => {
     const error = new InvalidCredentialsError();
     const { sut, authenticationSpy } = makeSut();
     jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error));
-    simulateValidSubmit(sut);
+    helper.simulateValidSubmit(sut);
     const errorWrap = sut.getByTestId('errorWrap');
     await waitFor(() => {
       expect(sut.getByTestId('mainError').textContent).toBe(error.message);
@@ -143,7 +131,7 @@ describe('Login Component', () => {
 
   test('should calls SaveAccessToKen on success', async () => {
     const { sut, authenticationSpy, saveAccessTokenMock } = makeSut();
-    simulateValidSubmit(sut);
+    helper.simulateValidSubmit(sut);
     await waitFor(() => {
       expect(saveAccessTokenMock.value).toBe(authenticationSpy.account.accessTokes);
       expect(history.location.pathname).toBe('/');
@@ -154,7 +142,7 @@ describe('Login Component', () => {
     const error = new InvalidCredentialsError();
     const { sut, saveAccessTokenMock } = makeSut();
     jest.spyOn(saveAccessTokenMock, 'save').mockReturnValueOnce(Promise.reject(error));
-    simulateValidSubmit(sut);
+    helper.simulateValidSubmit(sut);
     const errorWrap = sut.getByTestId('errorWrap');
     await waitFor(() => {
       expect(sut.getByTestId('mainError').textContent).toBe(error.message);

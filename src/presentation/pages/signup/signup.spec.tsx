@@ -27,19 +27,6 @@ const makeSut = (params?: SutParams) : SutTypes => {
   };
 };
 
-const simulateValidSubmit = (sut: RenderResult, email?, password?, passwordConfirmation?) : void => {
-  helper.populateField(sut, 'email', email);
-  helper.populateField(sut, 'password', password);
-  helper.populateField(sut, 'passwordConfirmation', passwordConfirmation);
-  const submitButton = sut.getByTestId('submit');
-  fireEvent.click(submitButton);
-};
-
-const testElementExist = (sut: RenderResult, fieldName) : void => {
-  const field = sut.getByTestId(fieldName);
-  expect(field).toBeTruthy();
-};
-
 describe('SignUp Component', () => {
   afterEach(cleanup);
 
@@ -101,7 +88,7 @@ describe('SignUp Component', () => {
 
   test('should show spinner on submit', () => {
     const { sut } = makeSut();
-    simulateValidSubmit(sut);
-    waitFor(() => testElementExist(sut, 'spinner-status'));
+    helper.simulateValidSubmitSignUp(sut);
+    waitFor(() => helper.testElementExist(sut, 'spinner-status'));
   });
 });
