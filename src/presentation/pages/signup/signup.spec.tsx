@@ -1,7 +1,7 @@
 
 import React from 'react';
 import faker from '@faker-js/faker';
-import { cleanup, render, RenderResult, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
 import SignUp from './signup';
 import { AddAccountSpy, helper, ValidationStub } from '@/presentation/test';
 
@@ -116,5 +116,12 @@ describe('SignUp Component', () => {
     await helper.simulateValidSubmit(sut);
     await helper.simulateValidSubmit(sut);
     waitFor(() => expect(addAccountSpy.callsCount).toBe(1));
+  });
+
+  test('should not call addAccount if form is invalid', async () => {
+    const validationError = faker.random.words();
+    const { sut, addAccountSpy } = makeSut({ validationError });
+    await fireEvent.submit(sut.getByTestId('form'));
+    waitFor(() => expect(addAccountSpy.callsCount).toBe(0));
   });
 });
