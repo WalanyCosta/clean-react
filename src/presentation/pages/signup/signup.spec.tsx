@@ -98,7 +98,7 @@ describe('SignUp Component', () => {
     });
   });
 
-  test('should call addAccount with correct values', async () => {
+  test('should call addAccountSpy with correct values', async () => {
     const { sut, addAccountSpy } = makeSut();
     const email = faker.internet.email();
     const password = faker.internet.password();
@@ -109,5 +109,12 @@ describe('SignUp Component', () => {
         password
       });
     });
+  });
+
+  test('should call addAccount only once', async () => {
+    const { sut, addAccountSpy } = makeSut();
+    await helper.simulateValidSubmit(sut);
+    await helper.simulateValidSubmit(sut);
+    waitFor(() => expect(addAccountSpy.callsCount).toBe(1));
   });
 });
