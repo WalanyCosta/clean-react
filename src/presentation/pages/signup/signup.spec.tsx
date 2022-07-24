@@ -1,7 +1,7 @@
 
 import React from 'react';
 import faker from '@faker-js/faker';
-import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
+import { cleanup, render, RenderResult, waitFor } from '@testing-library/react';
 import SignUp from './signup';
 import { helper, ValidationStub } from '@/presentation/test';
 
@@ -86,9 +86,11 @@ describe('SignUp Component', () => {
     helper.testButtonNotDisable(sut, 'submit');
   });
 
-  test('should show spinner on submit', () => {
+  test('should show spinner on submit', async () => {
     const { sut } = makeSut();
-    helper.simulateValidSubmitSignUp(sut);
-    waitFor(() => helper.testElementExist(sut, 'spinner-status'));
+    await helper.simulateValidSubmitSignUp(sut);
+    waitFor(() => {
+      helper.testElementExist(sut, 'spinner-status');
+    });
   });
 });

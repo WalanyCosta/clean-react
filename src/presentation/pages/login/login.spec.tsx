@@ -86,35 +86,37 @@ describe('Login Component', () => {
     helper.testButtonNotDisable(sut, 'submit');
   });
 
-  test('should show spinner on submit', () => {
+  test('should show spinner on submit', async () => {
     const { sut } = makeSut();
-    helper.simulateValidSubmit(sut);
-    helper.testElementExist(sut, 'spinner-status');
+    await helper.simulateValidSubmit(sut);
+    await helper.testElementExist(sut, 'spinner-status');
   });
 
-  test('should call Authentication with correct values', () => {
+  test('should call Authentication with correct values', async () => {
     const { sut, authenticationSpy } = makeSut();
     const email = faker.internet.email();
     const password = faker.internet.password();
-    helper.simulateValidSubmit(sut, email, password);
-    expect(authenticationSpy.params).toEqual({
-      email,
-      password
+    await helper.simulateValidSubmit(sut, email, password);
+    waitFor(() => {
+      expect(authenticationSpy.params).toEqual({
+        email,
+        password
+      });
     });
   });
 
-  test('should call Authentication only once', () => {
+  test('should call Authentication only once', async () => {
     const { sut, authenticationSpy } = makeSut();
-    helper.simulateValidSubmit(sut);
-    helper.simulateValidSubmit(sut);
-    expect(authenticationSpy.callsCount).toBe(1);
+    await helper.simulateValidSubmit(sut);
+    await helper.simulateValidSubmit(sut);
+    waitFor(() => expect(authenticationSpy.callsCount).toBe(1));
   });
 
-  test('should not call Authentication if form is invalid', () => {
+  test('should not call Authentication if form is invalid', async () => {
     const validationError = faker.random.words();
     const { sut, authenticationSpy } = makeSut({ validationError });
-    fireEvent.submit(sut.getByTestId('form'));
-    expect(authenticationSpy.callsCount).toBe(0);
+    await fireEvent.submit(sut.getByTestId('form'));
+    waitFor(() => expect(authenticationSpy.callsCount).toBe(0));
   });
 
   test('should present error if Authentication fails', async () => {
