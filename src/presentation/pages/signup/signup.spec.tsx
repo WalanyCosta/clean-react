@@ -164,4 +164,11 @@ describe('SignUp Component', () => {
       helper.testChildCount(sut, 'errorWrap', 1);
     });
   });
+
+  test('should go to login page', async () => {
+    const { sut } = makeSut();
+    const loginLink = sut.getByTestId('login-link');
+    fireEvent.click(loginLink);
+    expect(history.location.pathname).toBe('/login');
+  });
 });
