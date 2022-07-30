@@ -132,7 +132,7 @@ describe('SignUp Component', () => {
     jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error);
     await helper.simulateValidSubmitSignUp(sut);
     waitFor(() => {
-      expect(sut.getByTestId('mainWrap').textContent).toBe(error.message);
+      helper.testElementText(sut, 'mainError', error.message);
       helper.testChildCount(sut, 'errorWrap', 1);
     });
   });

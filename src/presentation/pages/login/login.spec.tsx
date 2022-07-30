@@ -124,10 +124,9 @@ describe('Login Component', () => {
     const { sut, authenticationSpy } = makeSut();
     jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(error);
     helper.simulateValidSubmit(sut);
-    const errorWrap = sut.getByTestId('errorWrap');
     await waitFor(() => {
-      expect(sut.getByTestId('mainError').textContent).toBe(error.message);
-      expect(errorWrap.childElementCount).toBe(1);
+      helper.testElementText(sut, 'mainError', error.message);
+      helper.testChildCount(sut, 'errorWrap', 1);
     });
   });
 
@@ -145,10 +144,9 @@ describe('Login Component', () => {
     const { sut, saveAccessTokenMock } = makeSut();
     jest.spyOn(saveAccessTokenMock, 'save').mockReturnValueOnce(Promise.reject(error));
     helper.simulateValidSubmit(sut);
-    const errorWrap = sut.getByTestId('errorWrap');
     await waitFor(() => {
-      expect(sut.getByTestId('mainError').textContent).toBe(error.message);
-      expect(errorWrap.childElementCount).toBe(1);
+      helper.testElementText(sut, 'mainError', error.message);
+      helper.testChildCount(sut, 'errorWrap', 1);
     });
   });
 
