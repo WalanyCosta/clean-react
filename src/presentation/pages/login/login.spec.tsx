@@ -9,7 +9,6 @@ import { InvalidCredentialsError } from '@/domain/errors';
 
 type SutTypes = {
   sut: RenderResult;
-  validationStub?: ValidationStub;
   authenticationSpy: AuthenticationSpy;
   saveAccessTokenMock: SaveAccessTokenMock;
 }
@@ -142,7 +141,7 @@ describe('Login Component', () => {
   test('should present error if SaveAccessToKen fails', async () => {
     const error = new InvalidCredentialsError();
     const { sut, saveAccessTokenMock } = makeSut();
-    jest.spyOn(saveAccessTokenMock, 'save').mockReturnValueOnce(Promise.reject(error));
+    jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(error);
     helper.simulateValidSubmit(sut);
     await waitFor(() => {
       helper.testElementText(sut, 'mainError', error.message);

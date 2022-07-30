@@ -153,4 +153,15 @@ describe('SignUp Component', () => {
       expect(history.location.pathname).toBe('/');
     });
   });
+
+  test('should present error if SaveAccessToKen fails', async () => {
+    const error = new EmailInUseError();
+    const { sut, saveAccessTokenMock } = makeSut();
+    jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(error);
+    await helper.simulateValidSubmit(sut);
+    waitFor(() => {
+      helper.testElementText(sut, 'mainError', error.message);
+      helper.testChildCount(sut, 'errorWrap', 1);
+    });
+  });
 });
