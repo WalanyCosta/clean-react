@@ -23,20 +23,20 @@ describe('ValidationBuilder', () => {
 
   test('should returns CompareFieldsValidation', () => {
     const field = faker.database.column();
-    const valueToCompare = faker.random.word();
-    const validations = ValidationBuilder.field(field).toCompare(valueToCompare).build();
-    expect(validations).toEqual([new CompareFieldValidation(field, valueToCompare)]);
+    const fieldToCompare = faker.database.column();
+    const validations = ValidationBuilder.field(field).sameAs(fieldToCompare).build();
+    expect(validations).toEqual([new CompareFieldValidation(field, fieldToCompare)]);
   });
 
   test('should returns List', () => {
     const field = faker.database.column();
-    const valueToCompare = faker.random.word();
-    const validations = ValidationBuilder.field(field).required().email().min(5).toCompare(valueToCompare).build();
+    const fieldToCompare = faker.random.word();
+    const validations = ValidationBuilder.field(field).required().email().min(5).sameAs(fieldToCompare).build();
     expect(validations).toEqual([
       new RequiredFieldValidation(field),
       new EmailValidation(field),
       new MinLengthValidation(field, 5),
-      new CompareFieldValidation(field, valueToCompare)
+      new CompareFieldValidation(field, fieldToCompare)
     ]);
   });
 });

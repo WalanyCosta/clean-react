@@ -2,7 +2,7 @@ import React from 'react';
 import faker from '@faker-js/faker';
 import { createMemoryHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import { cleanup, fireEvent, render, RenderResult, waitFor, waitForOptions } from '@testing-library/react';
+import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
 import SignUp from './signup';
 import { AddAccountSpy, helper, SaveAccessTokenMock, ValidationStub } from '@/presentation/test';
 import { EmailInUseError } from '@/domain/errors';
