@@ -70,7 +70,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
           >
             Entrar
           </button>
-          <Link to='/signUp' data-testid='register' className={Styles.link}>Criar conta</Link>
+          <Link to='/signup' data-testid='signup-link' className={Styles.link}>Criar conta</Link>
           <FormStatus />
         </form>
       </Context.Provider>
