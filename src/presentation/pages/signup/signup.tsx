@@ -3,14 +3,17 @@ import { Footer, FormStatus, Header, Input } from '@/presentation/components';
 import { Context } from '@/presentation/context/form/form-context';
 import Styles from './signup-styles.scss';
 import { Validation } from '@/presentation/protocols/validation';
-import { AddAccount } from '@/domain/usecases';
+import { AddAccount, SaveAccessToken } from '@/domain/usecases';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   validation?: Validation;
   addAccount?: AddAccount;
+  saveAccessToken?: SaveAccessToken;
 }
 
-const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
+const SignUp: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Props) => {
+  const navegate = useNavigate();
   const [state, setState] = useState({
     isLoading: false,
     emailError: '',
@@ -45,11 +48,13 @@ const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
         return;
       }
       setState({ ...state, isLoading: true });
-      await addAccount.add({
+      const account = await addAccount.add({
         email: state.email,
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       });
+      await saveAccessToken.save(account.accessTokes);
+      navegate('/', { replace: true });
     } catch (error) {
       setState({
         ...state,
@@ -80,7 +85,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
             >
               Entrar
             </button>
-            <span className={Styles.link}>Criar conta</span>
+            <span className={Styles.link}>Voltar ao Login</span>
             <FormStatus />
           </form>
         </Context.Provider>
