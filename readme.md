@@ -30,3 +30,4 @@
 ### Features
 
 - [x] Login
+- [x] signup
