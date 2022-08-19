@@ -6,3 +6,5 @@ public
 webpack.config.js
 *.scss
 firebaseConfig.js
+src/main/test/nightwatch
+tests_output

@@ -3,3 +3,4 @@ coverage
 .vscode
 public/js
 .env
+tests_output

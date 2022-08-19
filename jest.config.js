@@ -9,6 +9,7 @@ module.exports = {
     '!<rootDir>/src/validation/protocols/**/*',
     '!<rootDir>/src/data/protocols/cache/**/*',
     '!<rootDir>/src/presentation/components/router/**/*',
+    '!<rootDir>/src/main/test/**/*',
     '!**/*.d.ts'
   ],
   clearMocks: true,
