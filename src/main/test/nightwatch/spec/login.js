@@ -31,4 +31,18 @@ describe('Login', function () {
     const result = login.hasDescendants('@errorWrap');
     console.log(`Exists element: ${result}`);
   });
+
+  it('should present valid state if form is invalid', function (browser) {
+    const login = browser.page.object();
+    login.setInput('email', faker.internet.email());
+    login.getTestById('email-status').to.have.attribute('title').which.contains('tudo certo')
+    login.getTestById('email-status').text.to.contain('🟢');
+    login.setInput('password', faker.random.alphaNumeric(6));
+    login.getTestById('password-status').to.have.attribute('title').which.contains('tudo certo');
+    login.getTestById('password-status').text.to.contain('🟢');
+    login.getTestById('submit').to.not.have.attribute('disabled');
+    
+    const result = login.hasDescendants('@errorWrap');
+    console.log(`Exists element: ${result}`);
+  });
 });
