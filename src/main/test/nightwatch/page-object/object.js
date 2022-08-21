@@ -1,6 +1,9 @@
 const loginCommand = {
   getTestById: function(id){
     return this.expect.element(`[data-testid="${id}"]`);
+  },
+  setInput: function(id, value){
+    return this.setValue(`[data-testid="${id}"]`, value);
   }
 }
 
