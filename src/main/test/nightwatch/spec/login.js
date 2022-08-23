@@ -54,4 +54,15 @@ describe('Login', function () {
     login.getTestById('mainError').text.to.contain('credencias inválidas');
     login.assert.urlContains('localhost:3000/login');
   });
+
+  it('should go to Main page if valid credentials are provided', function (browser) {
+    const login = browser.page.object();
+    login.setInput('email', 'gildo@gmail.com');
+    login.setInput('password', '12345');
+    login.click('@submit');
+    login.getTestById('spinner-status').to.be.present;
+    login.getTestById('mainError').to.not.be.present;
+    login.getTestById('spinner-status').to.not.be.present;
+    login.assert.urlContains('localhost:3000');
+  });
 });
