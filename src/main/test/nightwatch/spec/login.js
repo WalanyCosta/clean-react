@@ -41,8 +41,17 @@ describe('Login', function () {
     login.getTestById('password-status').to.have.attribute('title').which.contains('tudo certo');
     login.getTestById('password-status').text.to.contain('🟢');
     login.getTestById('submit').to.not.have.attribute('disabled');
-    
-    const result = login.hasDescendants('@errorWrap');
-    console.log(`Exists element: ${result}`);
+  });
+
+  it('should present error if invalid credentials are provided', function (browser) {
+    const login = browser.page.object();
+    login.setInput('email', faker.internet.email());
+    login.setInput('password', faker.random.alphaNumeric(6));
+    login.click('@submit');
+    login.getTestById('spinner-status').to.be.present;
+    login.getTestById('mainError').to.not.be.present;
+    login.getTestById('spinner-status').to.not.be.present;
+    login.getTestById('mainError').text.to.contain('credencias inválidas');
+    login.assert.urlContains('localhost:3000/login');
   });
 });

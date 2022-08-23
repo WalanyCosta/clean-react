@@ -12,6 +12,9 @@ module.exports ={
   elements: {
     errorWrap: {
       selector: '[data-testid="errorWrap"]'
+    },
+    submit: {
+      selector: '[data-testid="submit"]'
     }
   },
   commands: [loginCommand]
