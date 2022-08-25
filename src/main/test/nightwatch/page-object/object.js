@@ -13,6 +13,9 @@ module.exports ={
     errorWrap: {
       selector: '[data-testid="errorWrap"]'
     },
+    email:{
+      selector: '[data-testid="email"]'
+    },
     submit: {
       selector: '[data-testid="submit"]'
     }

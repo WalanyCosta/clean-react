@@ -65,4 +65,11 @@ describe('Login', function () {
     login.getTestById('spinner-status').to.not.be.present;
     login.assert.urlContains('localhost:3000');
   });
+
+  it('should not call submit if form is invalid', function (browser) {
+    const login = browser.page.object();
+    login.setInput('email', 'gildo@gmail.com').sendKeys('@email', ['nightwatch', browser.Keys.ENTER]);
+    login.getTestById('mainError').to.not.be.present;
+    login.getTestById('spinner-status').to.not.be.present;
+  });
 });
