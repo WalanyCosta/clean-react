@@ -8,12 +8,14 @@ describe('Login', function () {
 
   it('should load with correct initial state', function (browser) {
     const login = browser.page.object();
-    login.getTestById('email-status').to.have.attribute('title').which.contains('Campo obrigatório')
-    login.getTestById('email-status').text.to.contain('🔴');
-    login.getTestById('password-status').to.have.attribute('title').which.contains('Campo obrigatório');
-    login.getTestById('password-status').text.to.contain('🔴');
+    login.getTestById('email-wrap').to.have.attribute('data-status').which.contains('invalid');
+    login.getTestById('email').to.have.attribute('title').which.contains('Campo obrigatório');
+    login.getTestById('email-label').to.have.attribute('title').which.contains('Campo obrigatório');
+    login.getTestById('password-wrap').to.have.attribute('data-status').which.contains('invalid');
+    login.getTestById('password').to.have.attribute('title').which.contains('Campo obrigatório');
+    login.getTestById('password-label').to.have.attribute('title').which.contains('Campo obrigatório');
     login.getTestById('submit').to.have.attribute('disabled');
-    
+
     const result = login.hasDescendants('@errorWrap');
     console.log(`Exists element: ${result}`);
   });
@@ -21,11 +23,13 @@ describe('Login', function () {
   it('should present error state if form is invalid', function (browser) {
     const login = browser.page.object();
     login.setInput('email', faker.random.word());
-    login.getTestById('email-status').to.have.attribute('title').which.contains('value não valido')
-    login.getTestById('email-status').text.to.contain('🔴');
+    login.getTestById('email-wrap').to.have.attribute('data-status').which.contains('invalid');
+    login.getTestById('email').to.have.attribute('title').which.contains('valor inválido');
+    login.getTestById('email-label').to.have.attribute('title').which.contains('valor inválido');
     login.setInput('password', faker.random.alphaNumeric(3));
-    login.getTestById('password-status').to.have.attribute('title').which.contains('value não valido');
-    login.getTestById('password-status').text.to.contain('🔴');
+    login.getTestById('password-wrap').to.have.attribute('data-status').which.contains('invalid');
+    login.getTestById('password').to.have.attribute('title').which.contains('valor inválido');
+    login.getTestById('password-label').to.have.attribute('title').which.contains('valor inválido');
     login.getTestById('submit').to.have.attribute('disabled');
     
     const result = login.hasDescendants('@errorWrap');
@@ -35,11 +39,13 @@ describe('Login', function () {
   it('should present valid state if form is invalid', function (browser) {
     const login = browser.page.object();
     login.setInput('email', faker.internet.email());
-    login.getTestById('email-status').to.have.attribute('title').which.contains('tudo certo')
-    login.getTestById('email-status').text.to.contain('🟢');
+    login.getTestById('email-wrap').to.have.attribute('data-status').which.contains('valid');
+    login.getTestById('email').to.not.have.attribute('title');
+    login.getTestById('email-label').to.not.have.attribute('title');
     login.setInput('password', faker.random.alphaNumeric(6));
-    login.getTestById('password-status').to.have.attribute('title').which.contains('tudo certo');
-    login.getTestById('password-status').text.to.contain('🟢');
+    login.getTestById('password-wrap').to.have.attribute('data-status').which.contains('valid');
+    login.getTestById('password').to.not.have.attribute('title');
+    login.getTestById('password-label').to.not.have.attribute('title');
     login.getTestById('submit').to.not.have.attribute('disabled');
   });
 
