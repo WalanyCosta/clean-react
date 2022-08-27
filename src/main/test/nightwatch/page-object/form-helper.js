@@ -19,7 +19,6 @@ module.exports = {
       sut.getTestById('mainError').to.not.be.present;
       sut.getTestById('spinner-status').to.not.be.present;
     }
-  
 }
 
 
