@@ -24,4 +24,16 @@ describe('Login', function () {
     helper.testInputStatus(signup, 'passwordConfirmation', 'valor inválido');
     signup.getTestById('submit').to.have.attribute('disabled');
   });
+
+  it('should present valid state if form is invalid', function (browser) {
+    const signup = browser.page.object();
+    const password = faker.random.alphaNumeric(6); 
+    signup.setInput('email', faker.internet.email());
+    helper.testInputStatus(signup, 'email');
+    signup.setInput('password', password);
+    helper.testInputStatus(signup, 'password');
+    signup.setInput('passwordConfirmation', password);
+    helper.testInputStatus(signup, 'passwordConfirmation');
+    signup.getTestById('submit').to.not.have.attribute('disabled');
+  });
 });
