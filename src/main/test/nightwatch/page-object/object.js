@@ -1,4 +1,4 @@
-const loginCommand = {
+const pageCommand = {
   getTestById: function(id){
     return this.expect.element(`[data-testid="${id}"]`);
   },
@@ -8,7 +8,6 @@ const loginCommand = {
 }
 
 module.exports ={
-  url: 'http://localhost:3000/login',
   elements: {
     errorWrap: {
       selector: '[data-testid="errorWrap"]'
@@ -20,5 +19,5 @@ module.exports ={
       selector: '[data-testid="submit"]'
     }
   },
-  commands: [loginCommand]
+  commands: [pageCommand]
 }
