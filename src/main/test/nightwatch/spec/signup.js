@@ -57,4 +57,10 @@ describe('SignUp', function () {
     helper.testMainError(signup);
     signup.assert.urlContains('localhost:3000');
   });
+
+  it('should not call submit if form is invalid', function (browser) {
+    const signup = browser.page.object();
+    signup.setInput('email', faker.internet.email()).sendKeys('@email', ['nightwatch', browser.Keys.ENTER]);
+    helper.testNoPresentSpinner(signup);
+  });
 });
