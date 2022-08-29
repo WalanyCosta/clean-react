@@ -50,4 +50,11 @@ describe('SignUp', function () {
     helper.testMainError(signup, 'Já este existe Email');
     signup.assert.urlContains('localhost:3000/signup');
   });
+
+  it('should go to Main page if email not in used', function (browser) {
+    const signup = browser.page.object();
+    simulateValidSubmit(signup, faker.internet.email(), faker.internet.password(8));
+    helper.testMainError(signup);
+    signup.assert.urlContains('localhost:3000');
+  });
 });
