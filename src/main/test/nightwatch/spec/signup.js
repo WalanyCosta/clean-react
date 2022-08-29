@@ -1,6 +1,13 @@
 const { faker } = require('@faker-js/faker');
 const helper = require('../page-object/form-helper')
 
+const simulateValidSubmit = (sut, email, password) =>{
+  sut.setInput('email', email);
+  sut.setInput('password', password);
+  sut.setInput('passwordConfirmation', password);
+  sut.click('@submit');
+};
+
 describe('Login', function () {
   beforeEach(()=>{
     browser.url('http://localhost:3000/signup')
@@ -27,13 +34,20 @@ describe('Login', function () {
 
   it('should present valid state if form is invalid', function (browser) {
     const signup = browser.page.object();
-    const password = faker.random.alphaNumeric(6); 
     signup.setInput('email', faker.internet.email());
     helper.testInputStatus(signup, 'email');
+    const password = faker.random.alphaNumeric(6); 
     signup.setInput('password', password);
     helper.testInputStatus(signup, 'password');
     signup.setInput('passwordConfirmation', password);
     helper.testInputStatus(signup, 'passwordConfirmation');
     signup.getTestById('submit').to.not.have.attribute('disabled');
+  });
+
+  it('should present error if email in used', function (browser) {
+    const signup = browser.page.object();
+    simulateValidSubmit(signup,"walanybnegro@gmail.com", "2000Walany0704");
+    helper.testMainError(signup, 'Já este existe Email');
+    signup.assert.urlContains('localhost:3000/signup');
   });
 });
