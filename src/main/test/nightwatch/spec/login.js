@@ -9,7 +9,7 @@ const simulateValidSubmit = (sut, email, password) =>{
 
 describe('Login', function () {
   beforeEach(()=>{
-    browser.url('http://localhost:3000/login')
+    helper.visit(browser, 'login');
   })
 
   it('should load with correct initial state', function (browser) {

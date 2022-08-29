@@ -8,9 +8,9 @@ const simulateValidSubmit = (sut, email, password) =>{
   sut.click('@submit');
 };
 
-describe('Login', function () {
+describe('SignUp', function () {
   beforeEach(()=>{
-    browser.url('http://localhost:3000/signup')
+    helper.visit(browser, 'signup');
   })
 
   it('should load with correct initial state', function (browser) {
