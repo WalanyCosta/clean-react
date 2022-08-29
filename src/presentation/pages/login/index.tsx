@@ -44,7 +44,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
       if (state.isLoading || state.isFormInvalid) {
         return;
       }
-      setState({ ...state, isLoading: true });
+      setState({ ...state, isLoading: true, mainError: '' });
       const account = await authentication.auth({
         email: state.email,
         password: state.password

@@ -51,7 +51,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
       if (state.isLoading || state.isFormInvalid) {
         return;
       }
-      setState({ ...state, isLoading: true });
+      setState({ ...state, isLoading: true, mainError: '' });
       const account = await addAccount.add({
         email: state.email,
         password: state.password,
