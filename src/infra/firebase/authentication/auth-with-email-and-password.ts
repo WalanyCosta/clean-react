@@ -7,9 +7,12 @@ export class AuthWithEmailAndPassword implements AuthFirebase<any> {
   async authFirebase (param: AuthenticationParams): Promise<Response<any>> {
     try {
       const response = await signInWithEmailAndPassword(getAuth(app), param.email, param.password);
+      console.log(response.user.uid);
       return {
         statusCode: 200,
-        body: response.user.uid
+        body: {
+          accessTokes: response.user.uid
+        }
       };
     } catch (erro) {
       return {
