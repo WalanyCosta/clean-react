@@ -9,7 +9,9 @@ export class SignUp implements CreateUser<any> {
       const response = await createUserWithEmailAndPassword(getAuth(app), param.email, param.password);
       return {
         statusCode: 200,
-        body: response.user
+        body: {
+          accessTokes: response.user.uid
+        }
       };
     } catch (error) {
       return {
