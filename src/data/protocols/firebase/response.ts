@@ -3,7 +3,7 @@ export enum StatusCode {
   unauthorized = 'auth/wrong-password',
   unauthorizedUser = 'auth/user-not-found',
   serverError = 500,
-  forbidden = 401
+  forbidden = 'auth/email-already-in-use'
 }
 
 export type Response <R> = {
