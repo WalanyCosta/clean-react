@@ -46,7 +46,7 @@ describe('Login', function () {
 
   it('should go to Main page if valid credentials are provided', function (browser) {
     const login = browser.page.object();
-    simulateValidSubmit(login,'gildo@gmail.com', '12345');
+    simulateValidSubmit(login,'gildo@gmail.com', '123456');
     helper.testMainError(login);
     login.assert.urlContains('localhost:3000');
   });

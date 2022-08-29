@@ -13,7 +13,9 @@ module.exports = {
       sut.getTestById('spinner-status').to.be.present;
       sut.getTestById('mainError').to.not.be.present;
       sut.getTestById('spinner-status').to.not.be.present;
-      if(message) sut.getTestById('mainError').text.to.contain(message);
+      if(message) {
+        sut.getTestById('mainError').text.to.contain(message)
+      }else sut.getTestById('mainError').to.not.be.present;
     },
     testNoPresentSpinner: (sut) =>{
       sut.getTestById('mainError').to.not.be.present;

@@ -46,7 +46,7 @@ describe('SignUp', function () {
 
   it('should present error if email in used', function (browser) {
     const signup = browser.page.object();
-    simulateValidSubmit(signup,"walanybnegro@gmail.com", "2000Walany0704");
+    simulateValidSubmit(signup,"yonelma@gmail.com", "yo#450");
     helper.testMainError(signup, 'Já este existe Email');
     signup.assert.urlContains('localhost:3000/signup');
   });
