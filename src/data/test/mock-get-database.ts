@@ -1,9 +1,13 @@
-import { GetDatabase, GetDatabaseParam } from '../protocols/firebase';
+import { GetDatabase, GetDatabaseParam, Response, StatusCode } from '../protocols/firebase';
 
-export class GetDatabaseSpy implements GetDatabase {
+export class GetDatabaseSpy<R = any> implements GetDatabase<R> {
   url: string;
+  response = {
+    statusCode: StatusCode.ok
+  };
 
-  async get (param: GetDatabaseParam): Promise<void> {
+  async get (param: GetDatabaseParam): Promise<Response<R>> {
     this.url = param.url;
+    return this.response;
   }
 }
