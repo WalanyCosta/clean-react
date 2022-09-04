@@ -2,9 +2,7 @@ import { GetDatabase, GetDatabaseParam, Response, StatusCode } from '../protocol
 
 export class GetDatabaseSpy<R = any> implements GetDatabase<R> {
   url: string;
-  response = {
-    statusCode: StatusCode.ok
-  };
+  response: Response<R>
 
   async get (param: GetDatabaseParam): Promise<Response<R>> {
     this.url = param.url;

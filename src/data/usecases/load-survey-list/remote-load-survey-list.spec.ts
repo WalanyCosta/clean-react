@@ -4,6 +4,7 @@ import { RemoteLoadSurveyList } from './remote-load-survey-list';
 import { StatusCode } from '@/data/protocols/firebase';
 import { SurveyModel } from '@/domain/model';
 import { UnexpectedError } from '@/domain/errors';
+import { mockSurveyList } from '@/domain/test';
 
 type SutTypes = {
   sut: RemoteLoadSurveyList,
@@ -12,6 +13,9 @@ type SutTypes = {
 
 const makeSut = (url = faker.internet.url()) : SutTypes => {
   const getDatabaseSpy = new GetDatabaseSpy<SurveyModel[]>();
+  getDatabaseSpy.response = {
+    statusCode: StatusCode.ok
+  };
   const sut = new RemoteLoadSurveyList(url, getDatabaseSpy);
   return {
     sut,
@@ -27,12 +31,23 @@ describe('RemoteLoadSurveyList', () => {
     expect(getDatabaseSpy.url).toBe(url);
   });
 
-  test('should throw UnexpectedError GetDatabase return error', async () => {
+  test('should throw UnexpectedError GetDatabase returns error', async () => {
     const { sut, getDatabaseSpy } = makeSut();
     getDatabaseSpy.response = {
       statusCode: StatusCode.serverError
     };
     const promise = sut.loadAll();
     await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('should return a list of SurveyModel if GetDatabase do not return error', async () => {
+    const { sut, getDatabaseSpy } = makeSut();
+    const response = mockSurveyList();
+    getDatabaseSpy.response = {
+      statusCode: StatusCode.ok,
+      body: response
+    };
+    const surveyList = await sut.loadAll();
+    expect(surveyList).toBe(response);
   });
 });
