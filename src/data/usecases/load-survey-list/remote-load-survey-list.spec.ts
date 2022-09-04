@@ -50,4 +50,13 @@ describe('RemoteLoadSurveyList', () => {
     const surveyList = await sut.loadAll();
     expect(surveyList).toBe(response);
   });
+
+  test('should return a list of SurveyModel if GetDatabase returns 204', async () => {
+    const { sut, getDatabaseSpy } = makeSut();
+    getDatabaseSpy.response = {
+      statusCode: StatusCode.noContent
+    };
+    const surveyList = await sut.loadAll();
+    expect(surveyList).toEqual([]);
+  });
 });
