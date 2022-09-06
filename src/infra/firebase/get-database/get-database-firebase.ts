@@ -1,5 +1,5 @@
 import { GetDatabase, GetDatabaseParam } from '@/data/protocols/firebase';
-import { get, ref, getDatabase, DataSnapshot, child } from 'firebase/database';
+import { get, ref, getDatabase, child } from 'firebase/database';
 
 export class GetDatabaseFirebase implements GetDatabase<any> {
   async get (param: GetDatabaseParam): Promise<any> {

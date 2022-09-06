@@ -53,4 +53,12 @@ describe('GetDatabaseFirebase', () => {
     const promise = sut.get(mockParamUrl());
     expect(promise).toEqual(Promise.resolve(mockedResult(valueReturn)));
   });
+
+  test('should return statuscode 500 if get returns error', async () => {
+    const { sut, mockedGetDatabase } = makeSut();
+    const mockedResultReject = { statusCode: 500 };
+    mockedGetDatabase.mockRejectedValue(new Error('Ocorreu um error'));
+    const promise = await sut.get(mockParamUrl());
+    expect(promise).toEqual(mockedResultReject);
+  });
 });
