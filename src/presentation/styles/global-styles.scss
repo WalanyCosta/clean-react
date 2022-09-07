@@ -32,7 +32,7 @@ button{
   }
 
   &:disabled{
-    background-color: $disableBackground;
+    background-color: $disabledBackground;
     color: $disableColor;
     
     &:hover{
