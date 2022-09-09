@@ -39,7 +39,7 @@
         flex-basis: 48%;
         margin-bottom: 24px;
         box-shadow: 0px 1px 3px -1px $black;
-        
+
         .surveyContent{
           display: flex;
           border-radius: 8px 8px 0px 0px;
@@ -90,6 +90,7 @@
             font-size: 18px;
             margin: 24px;
             align-self: center;
+            flex-grow: 1;
           }
         }
         footer{
@@ -104,6 +105,20 @@
           &:hover{
             background-color: $primary-dark;
           }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px){
+  .surveyListWrap{
+    .contentWrap{ 
+      ul{
+        flex-direction: column;
+        
+        li{
+          flex-basis: 100%;
         }
       }
     }
