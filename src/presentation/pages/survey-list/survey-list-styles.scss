@@ -39,6 +39,7 @@
         flex-basis: 48%;
         margin-bottom: 24px;
         box-shadow: 0px 1px 3px -1px $black;
+        
         .surveyContent{
           display: flex;
           border-radius: 8px 8px 0px 0px;
@@ -57,19 +58,8 @@
             position: absolute;
             top: -10px;
             right: -10px;
-            padding: 10px;
-            border-radius: 100%;
-            display: flex;
-            box-shadow: 0px 1px 3px -1px $black;
-
-            &.red{
-              background-color: $invalid;
-            }
-
-            &.green{
-              background-color: $valid;
-            }
           }
+
           time{
             display: flex;
             flex-direction: column;

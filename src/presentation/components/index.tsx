@@ -6,3 +6,4 @@ export { default as Spinner } from './spinner/spinners';
 export { default as Router } from './router/router';
 export { default as SubmitButton } from './submit-button/submit-button';
 export { default as Header } from './header/header';
+export { default as Icon, IconName } from './icon/icon';
