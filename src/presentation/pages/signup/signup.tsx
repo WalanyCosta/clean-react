@@ -3,16 +3,16 @@ import { Footer, FormStatus, Header, Input, SubmitButton } from '@/presentation/
 import { Context } from '@/presentation/context/form/form-context';
 import Styles from './signup-styles.scss';
 import { Validation } from '@/presentation/protocols/validation';
-import { AddAccount, SaveAccessToken } from '@/domain/usecases';
+import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases';
 import { Link, useNavigate } from 'react-router-dom';
 
 type Props = {
   validation?: Validation;
   addAccount?: AddAccount;
-  saveAccessToken?: SaveAccessToken;
+  updateCurrentAccount?: UpdateCurrentAccount;
 }
 
-const SignUp: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Props) => {
+const SignUp: React.FC<Props> = ({ validation, addAccount, updateCurrentAccount }: Props) => {
   const navegate = useNavigate();
   const [state, setState] = useState({
     isLoading: false,
@@ -57,7 +57,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       });
-      await saveAccessToken.save(account.accessTokes);
+      await updateCurrentAccount.save(account);
       navegate('/', { replace: true });
     } catch (error) {
       setState({

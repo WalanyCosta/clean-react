@@ -17,5 +17,6 @@ export const mockAddAccount = (): AddAccountParam => {
 };
 
 export const mockAccount = (): AccountModel => ({
-  accessTokes: faker.random.alphaNumeric(8)
+  accessToken: faker.random.alphaNumeric(8),
+  email: faker.internet.email()
 });

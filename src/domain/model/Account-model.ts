@@ -1,3 +1,4 @@
 export type AccountModel = {
-    accessTokes: string;
+    accessToken: string;
+    email?: string;
 }

@@ -10,7 +10,7 @@
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "test:nw": "nightwatch src/main/test/nightwatch/spec/signup.js --open",
+    "test:nw": "nightwatch --open",
     "prepare": "husky install",
     "check": "npm-check -s -u"
   },
