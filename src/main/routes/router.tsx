@@ -4,7 +4,7 @@ import { makeLogin as MakeLogin } from '@/main/factories/pages/login/login-facto
 import { makeSignUp as MakeSignUp } from '@/main/factories/pages/signup/signup-factory';
 import { SurveyList } from '@/presentation/pages';
 
-import '../../styles/global-styles.scss';
+import '@/presentation/styles/global-styles.scss';
 
 const Router : React.FC = () => {
   return (
