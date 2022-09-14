@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Footer, FormStatus, Header, Input, SubmitButton } from '@/presentation/components';
 import { Context } from '@/presentation/context/form/form-context';
 import Styles from './signup-styles.scss';
 import { Validation } from '@/presentation/protocols/validation';
-import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases';
+import { AddAccount } from '@/domain/usecases';
 import { Link, useNavigate } from 'react-router-dom';
+import { ApiContext } from '@/presentation/context';
 
 type Props = {
   validation?: Validation;
   addAccount?: AddAccount;
-  updateCurrentAccount?: UpdateCurrentAccount;
 }
 
-const SignUp: React.FC<Props> = ({ validation, addAccount, updateCurrentAccount }: Props) => {
+const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
   const navegate = useNavigate();
+  const { setCurrentAccount } = useContext(ApiContext);
   const [state, setState] = useState({
     isLoading: false,
     isFormInvalid: true,
@@ -57,7 +58,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount, updateCurrentAccount 
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       });
-      await updateCurrentAccount.save(account);
+      setCurrentAccount(account);
       navegate('/', { replace: true });
     } catch (error) {
       setState({

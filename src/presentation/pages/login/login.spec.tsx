@@ -3,14 +3,16 @@ import { createMemoryHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import Login from './index';
-import { ValidationStub, AuthenticationSpy, UpdateCurrentAccountMock, helper } from '@/presentation/test';
+import { ValidationStub, AuthenticationSpy, helper } from '@/presentation/test';
 import faker from '@faker-js/faker';
 import { InvalidCredentialsError } from '@/domain/errors';
+import { ApiContext } from '@/presentation/context';
+import { AccountModel } from '@/domain/model';
 
 type SutTypes = {
   sut: RenderResult;
   authenticationSpy: AuthenticationSpy;
-  updateCurrentAccountMock: UpdateCurrentAccountMock;
+  setCurrentAccountMock: (account: AccountModel) => void;
 }
 
 type SutParams = {
@@ -22,21 +24,22 @@ const history = createMemoryHistory({ initialEntries: ['/login'] });
 const makeSut = (params?: SutParams) : SutTypes => {
   const validationStub = new ValidationStub();
   const authenticationSpy = new AuthenticationSpy();
-  const updateCurrentAccountMock = new UpdateCurrentAccountMock();
+  const setCurrentAccountMock = jest.fn();
   validationStub.errorMessage = params?.validationError;
   const sut = render(
+    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
     <HistoryRouter history={history}>
       <Login
           validation={validationStub}
           authentication={authenticationSpy}
-          updateCurrentAccount={updateCurrentAccountMock}
         />
     </HistoryRouter>
+    </ApiContext.Provider>
   );
   return {
     sut,
     authenticationSpy,
-    updateCurrentAccountMock
+    setCurrentAccountMock
   };
 };
 
@@ -130,22 +133,11 @@ describe('Login Component', () => {
   });
 
   test('should calls UpdateCurrentAccount on success', async () => {
-    const { sut, authenticationSpy, updateCurrentAccountMock } = makeSut();
+    const { sut, authenticationSpy, setCurrentAccountMock } = makeSut();
     helper.simulateValidSubmit(sut);
     await waitFor(() => {
-      expect(updateCurrentAccountMock.value).toEqual(authenticationSpy.account);
+      expect(setCurrentAccountMock).toHaveBeenCalledWith(authenticationSpy.account);
       expect(history.location.pathname).toBe('/');
-    });
-  });
-
-  test('should present error if UpdateCurrentAccount fails', async () => {
-    const error = new InvalidCredentialsError();
-    const { sut, updateCurrentAccountMock } = makeSut();
-    jest.spyOn(updateCurrentAccountMock, 'save').mockRejectedValueOnce(error);
-    helper.simulateValidSubmit(sut);
-    await waitFor(() => {
-      helper.testElementText(sut, 'mainError', error.message);
-      helper.testChildCount(sut, 'errorWrap', 1);
     });
   });
 
