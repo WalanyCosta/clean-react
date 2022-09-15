@@ -10,7 +10,10 @@ import '@/presentation/styles/global-styles.scss';
 
 const Router : React.FC = () => {
   return (
-    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountAdapter }}>
+    <ApiContext.Provider
+    value={{
+      setCurrentAccount: setCurrentAccountAdapter
+    }}>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<MakeLogin/>} />
