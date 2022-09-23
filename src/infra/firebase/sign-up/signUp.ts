@@ -10,7 +10,8 @@ export class SignUp implements CreateUser<any> {
       return {
         statusCode: 200,
         body: {
-          accessTokes: response.user.uid
+          accessToken: response.user.uid,
+          email: response.user.email
         }
       };
     } catch (error) {
