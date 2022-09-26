@@ -46,11 +46,11 @@ describe('SignUp Component', () => {
   test('Should start with initial state', () => {
     const validationError = 'campo obrigatório';
     makeSut({ validationError });
-    helper.testChildCount('errorWrap', 0);
-    helper.testButtonDisable('submit');
+    expect(screen.getByTestId('errorWrap').children).toHaveLength(0);
     helper.testStatusForField('email', validationError);
     helper.testStatusForField('password', validationError);
     helper.testStatusForField('passwordConfirmation', validationError);
+    expect(screen.getByTestId('submit')).toBeDisabled();
   });
 
   test('should show email error if validation fails', () => {
@@ -96,14 +96,14 @@ describe('SignUp Component', () => {
     makeSut();
     helper.populateField('email');
     helper.populateField('password');
-    helper.testButtonNotDisable('submit');
+    expect(screen.getByTestId('submit')).toBeEnabled();
   });
 
   test('should show spinner on submit', async () => {
     makeSut();
     await helper.simulateValidSubmitSignUp();
-    waitFor(() => {
-      helper.testElementExist('spinner-status');
+    waitFor(async () => {
+      expect(screen.queryByTestId('spinner-status')).toBeInTheDocument();
     });
   });
 
@@ -140,8 +140,8 @@ describe('SignUp Component', () => {
     jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error);
     await helper.simulateValidSubmitSignUp();
     waitFor(() => {
-      helper.testElementText('mainError', error.message);
-      helper.testChildCount('errorWrap', 1);
+      expect(screen.getByTestId('mainError')).toHaveTextContent(error.message);
+      expect(screen.getByTestId('errorWrap').children).toHaveLength(1);
     });
   });
 

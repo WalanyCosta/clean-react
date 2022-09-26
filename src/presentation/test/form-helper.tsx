@@ -1,23 +1,13 @@
 import faker from '@faker-js/faker';
 import { fireEvent, screen } from '@testing-library/react';
 
-export const testChildCount = (field: string, count: number) => {
-  const errorWrap = screen.getByTestId(field);
-  expect(errorWrap.childElementCount).toBe(count);
-};
-
 export const testStatusForField = (fieldName, validationError: string = '') : void => {
   const wrap = screen.getByTestId(`${fieldName}-wrap`);
   const field = screen.getByTestId(fieldName);
   const label = screen.getByTestId(`${fieldName}-label`);
-  expect(wrap.getAttribute('data-status')).toBe(validationError ? 'invalid' : 'valid');
-  expect(field.title).toBe(validationError);
-  expect(label.title).toBe(validationError);
-};
-
-export const testButtonDisable = (fieldName) : void => {
-  const submitButton = screen.getByTestId(fieldName) as HTMLButtonElement;
-  expect(submitButton.disabled).toBeTruthy();
+  expect(wrap).toHaveAttribute('data-status', validationError ? 'invalid' : 'valid');
+  expect(field).toHaveProperty('title', validationError);
+  expect(label).toHaveProperty('title', validationError);
 };
 
 export const populateField = (field:string, value = faker.random.word()): void => {
@@ -27,11 +17,6 @@ export const populateField = (field:string, value = faker.random.word()): void =
       value: value
     }
   });
-};
-
-export const testButtonNotDisable = (fieldName) : void => {
-  const submitButton = screen.getByTestId(fieldName) as HTMLButtonElement;
-  expect(submitButton.disabled).toBeFalsy();
 };
 
 export const simulateValidSubmit = (email?, password?) : void => {
@@ -47,14 +32,4 @@ export const simulateValidSubmitSignUp = (email?, password?, passwordConfirmatio
   populateField('passwordConfirmation', passwordConfirmation);
   const submitButton = screen.getByTestId('submit');
   fireEvent.click(submitButton);
-};
-
-export const testElementExist = (fieldName) : void => {
-  const field = screen.getByTestId(fieldName);
-  expect(field).toBeTruthy();
-};
-
-export const testElementText = (fieldName, message): void => {
-  const field = screen.getByTestId(fieldName);
-  expect(field.textContent).toBe(message);
 };
