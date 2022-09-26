@@ -4,7 +4,7 @@ import Styles from './survey-list-styles.scss';
 
 const SurveyList: React.FC = () => {
   return (
-    <div className={Styles.surveyListWrap}>
+    <div className={Styles.surveyListWrap} data-testid='surveyList'>
       <Header />
       <div className={Styles.contentWrap}>
         <h2>Enquetes</h2>
