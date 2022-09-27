@@ -1,22 +1,38 @@
-import { Icon, IconName } from '@/presentation/components';
 import React from 'react';
+import { SurveyModel } from '@/domain/model';
+import { Icon, IconName } from '@/presentation/components';
 
 import Styles from './survey-item-styles.scss';
 
-const SurveyItem: React.FC = () => {
+type Props = {
+  survey: SurveyModel
+}
+
+const formatMonthToPTBR = (date: Date): string => {
+  const month = new Intl.DateTimeFormat('pt-br', { month: 'short' });
+  return month.format(date).replace('.', '');
+};
+
+const SurveyItem: React.FC<Props> = ({ survey }: Props) => {
   return (
     <li className={Styles.surveyItemWrap}>
     <div className={Styles.surveyContent}>
       <Icon
-        iconName={IconName.thumbDown}
+        iconName={IconName.thumbUp}
         className={Styles.iconWrap}
       />
       <time>
-        <span className={Styles.day}>07</span>
-        <span className={Styles.month}>09</span>
-        <span className={Styles.year}>2022</span>
+        <span data-testid="day" className={Styles.day}>
+          {survey.date.getDate()}
+        </span>
+        <span data-testid="month" className={Styles.month}>
+          {formatMonthToPTBR(survey.date)}
+        </span>
+        <span data-testid="year" className={Styles.year}>
+          {survey.date.getFullYear()}
+        </span>
       </time>
-      <p>Qual é a melhor linguagem?</p>
+      <p data-testid="question">{survey.question}</p>
     </div>
     <footer>Ver resultado</footer>
   </li>
