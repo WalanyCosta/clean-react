@@ -1,7 +1,7 @@
 import faker, { Faker } from '@faker-js/faker';
 import { SurveyModel } from '../model';
 
-export const mockSurveyList = (): SurveyModel[] => ([{
+export const mockSurveyModel = (): SurveyModel => ({
   id: faker.random.alphaNumeric(8),
   question: faker.random.words(10),
   answers: [{
@@ -13,4 +13,10 @@ export const mockSurveyList = (): SurveyModel[] => ([{
   }],
   date: faker.date.recent(),
   didAnswer: faker.datatype.boolean()
-}]);
+});
+
+export const mockSurveyList = (): SurveyModel[] => ([
+  mockSurveyModel(),
+  mockSurveyModel(),
+  mockSurveyModel()
+]);
