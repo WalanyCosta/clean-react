@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { LoadSurveyList } from '@/domain/usecases/load-survey-list';
 import SurveyList from './survey-list';
 import { LoadSurveyListSpy } from '@/presentation/test/mock-load-survey-list';
 import { UnexpectedError } from '@/domain/errors';
