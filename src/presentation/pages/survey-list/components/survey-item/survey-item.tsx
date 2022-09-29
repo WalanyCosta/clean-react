@@ -14,16 +14,17 @@ const formatMonthToPTBR = (date: Date): string => {
 };
 
 const SurveyItem: React.FC<Props> = ({ survey }: Props) => {
+  const iconName = survey.didAnswer ? IconName.thumbUp : IconName.thumbDown;
   return (
     <li className={Styles.surveyItemWrap}>
     <div className={Styles.surveyContent}>
       <Icon
-        iconName={IconName.thumbUp}
+        iconName={iconName}
         className={Styles.iconWrap}
       />
       <time>
         <span data-testid="day" className={Styles.day}>
-          {survey.date.getDate()}
+          {survey.date.getDate().toString().padStart(2, '0')}
         </span>
         <span data-testid="month" className={Styles.month}>
           {formatMonthToPTBR(survey.date)}
