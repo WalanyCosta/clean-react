@@ -30,6 +30,8 @@
         // "react/jsx-users-react": "error",
         // "react/jsx-users-vars": "error",
         "no-use-before-define": "off",
+        "no-redeclare": "off",
+        "import/export": "off",
         "react/prop-types": "off",
         "no-useless-escape": "off",
         "no-useless-constructor": "off"
