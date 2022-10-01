@@ -1,5 +1,5 @@
 import faker from '@faker-js/faker';
-import { GetDatabaseSpy } from '@/data/test';
+import { GetDatabaseSpy, mockRemoteSurveyList } from '@/data/test';
 import { RemoteLoadSurveyList } from './remote-load-survey-list';
 import { StatusCode } from '@/data/protocols/firebase';
 import { SurveyModel } from '@/domain/model';
@@ -8,11 +8,11 @@ import { mockSurveyList } from '@/domain/test';
 
 type SutTypes = {
   sut: RemoteLoadSurveyList,
-  getDatabaseSpy: GetDatabaseSpy<SurveyModel[]>
+  getDatabaseSpy: GetDatabaseSpy<RemoteLoadSurveyList.Model[]>
 }
 
 const makeSut = (url = faker.internet.url()) : SutTypes => {
-  const getDatabaseSpy = new GetDatabaseSpy<SurveyModel[]>();
+  const getDatabaseSpy = new GetDatabaseSpy<RemoteLoadSurveyList.Model[]>();
   getDatabaseSpy.response = {
     statusCode: StatusCode.ok
   };
@@ -42,13 +42,33 @@ describe('RemoteLoadSurveyList', () => {
 
   test('should return a list of SurveyModel if GetDatabase do not return error', async () => {
     const { sut, getDatabaseSpy } = makeSut();
-    const response = mockSurveyList();
+    const response = mockRemoteSurveyList();
     getDatabaseSpy.response = {
       statusCode: StatusCode.ok,
       body: response
     };
     const surveyList = await sut.loadAll();
-    expect(surveyList).toBe(response);
+    expect(surveyList).toEqual([{
+      id: response[0].id,
+      question: response[0].question,
+      answers: response[0].answers,
+      date: new Date(response[0].date),
+      didAnswer: response[0].didAnswer
+    },
+    {
+      id: response[1].id,
+      question: response[1].question,
+      answers: response[1].answers,
+      date: new Date(response[1].date),
+      didAnswer: response[1].didAnswer
+    },
+    {
+      id: response[2].id,
+      question: response[2].question,
+      answers: response[2].answers,
+      date: new Date(response[2].date),
+      didAnswer: response[2].didAnswer
+    }]);
   });
 
   test('should return a list of SurveyModel if GetDatabase returns 204', async () => {
