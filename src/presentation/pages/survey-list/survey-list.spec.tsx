@@ -3,13 +3,23 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import SurveyList from './survey-list';
 import { LoadSurveyListSpy } from '@/presentation/test/mock-load-survey-list';
 import { UnexpectedError } from '@/domain/errors';
+import { createMemoryHistory } from 'history';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import { ApiContext } from '@/presentation/context';
 
 type SutTypes = {
   loadSurveyListSpy: LoadSurveyListSpy
 }
 
 const makeSut = (loadSurveyListSpy = new LoadSurveyListSpy()): SutTypes => {
-  render(<SurveyList loadSurveyList={loadSurveyListSpy}/>);
+  const setCurrentAccountMock = jest.fn();
+  render(
+    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
+    <HistoryRouter history={createMemoryHistory()}>
+      <SurveyList loadSurveyList={loadSurveyListSpy}/>
+    </HistoryRouter>
+    </ApiContext.Provider>
+  );
   return {
     loadSurveyListSpy
   };
