@@ -12,11 +12,14 @@ type SutTypes ={
   setCurrentAccountMock: (account: AccountModel) => void;
 }
 
-const makeSut = (): SutTypes => {
+const makeSut = (account = mockAccount()): SutTypes => {
   const history = createMemoryHistory({ initialEntries: ['/'] });
   const setCurrentAccountMock = jest.fn();
   render(
-      <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
+      <ApiContext.Provider value={{
+        setCurrentAccount: setCurrentAccountMock,
+        getCurrentAccount: () => account
+      }}>
       <HistoryRouter history={history}>
         <Header />
       </HistoryRouter>
@@ -35,5 +38,11 @@ describe('Header Component', () => {
     fireEvent.click(screen.getByTestId('logout'));
     expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined);
     expect(history.location.pathname).toBe('/login');
+  });
+
+  test('should render email currently', () => {
+    const account = mockAccount();
+    makeSut(account);
+    expect(screen.getByTestId('userEmail')).toHaveTextContent(account.email);
   });
 });
