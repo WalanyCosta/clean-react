@@ -13,12 +13,6 @@ describe('CurrentAccountAdapter', () => {
     expect(setSpy).toHaveBeenCalledWith('account', account);
   });
 
-  test('should throw UnexpectedError', () => {
-    expect(() => {
-      setCurrentAccountAdapter(undefined);
-    }).toThrow(new UnexpectedError());
-  });
-
   test('should calls LocalStorageAdapter.get with correct values', () => {
     const account = mockAccount();
     const getSpy = jest.spyOn(LocalStorageAdapter.prototype, 'get').mockReturnValueOnce(account);
