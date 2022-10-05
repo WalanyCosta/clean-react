@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Footer, FormStatus, Header, Input, SubmitButton } from '@/presentation/components';
+import { Footer, FormStatus, HeaderLogin, Input, SubmitButton } from '@/presentation/components';
 import { Context } from '@/presentation/context/form/form-context';
 import Styles from './signup-styles.scss';
 import { Validation } from '@/presentation/protocols/validation';
@@ -71,7 +71,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
 
   return (
       <div className={Styles.signupWrap}>
-        <Header />
+        <HeaderLogin />
         <Context.Provider value={{ state, setState }}>
           <form data-testid='form' className={Styles.form} onSubmit={handleSubmit}>
             <h2>Criar conta</h2>
