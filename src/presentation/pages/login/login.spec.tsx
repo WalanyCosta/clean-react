@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import { render, RenderResult, fireEvent, cleanup, waitFor, screen } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import Login from './index';
 import { ValidationStub, AuthenticationSpy, helper } from '@/presentation/test';
 import faker from '@faker-js/faker';
