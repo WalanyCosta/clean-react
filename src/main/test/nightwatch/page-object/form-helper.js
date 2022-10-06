@@ -21,9 +21,9 @@ module.exports = {
       sut.getTestById('mainError').to.not.be.present;
       sut.getTestById('spinner-status').to.not.be.present;
     },
-    visit: (sut, route) => {
+    visit: (sut, route = '') => {
       sut.url(`http://localhost:3000/${route}`);
-    }
+    },
 }
 
 
