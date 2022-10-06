@@ -1,7 +1,6 @@
 import { SurveyModel } from '@/domain/model';
 import { LoadSurveyList } from '@/domain/usecases/load-survey-list';
-import { Footer, Header, Icon, IconName } from '@/presentation/components';
-
+import { Footer, Header } from '@/presentation/components';
 import React, { useEffect, useState } from 'react';
 import { SurveyContext, SurveyListItem, SurveyError } from './components';
 import Styles from './survey-list-styles.scss';

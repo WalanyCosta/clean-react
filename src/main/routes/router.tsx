@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { makeLogin as MakeLogin } from '@/main/factories/pages/login/login-factory';
 import { makeSignUp as MakeSignUp } from '@/main/factories/pages/signup/signup-factory';
 import { ApiContext } from '@/presentation/context';

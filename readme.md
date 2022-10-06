@@ -1,6 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/WalanyCosta/clean-react/badge.svg?branch=master)](https://coveralls.io/github/WalanyCosta/clean-react?branch=master)
+[![Node.js CI](https://github.com/WalanyCosta/clean-react/actions/workflows/CI.yml/badge.svg)](https://github.com/WalanyCosta/clean-react/actions/workflows/CI.yml)
 <img src="https://img.shields.io/badge/License-MIT-green"/>
-<img src="https://img.shields.io/badge/build-passing-green"/>
 
 <div align="center">
   <img src="public/img/logo.png"/>
