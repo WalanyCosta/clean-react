@@ -20,8 +20,11 @@ module.exports = {
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
   transform: {
-    '.+\\.(ts|tsx)$': 'ts-jest'
+    'node_modules/@faker-js/.+\\.(j|t)sx?$': 'ts-jest'
   },
+  transformIgnorePatterns: [
+    "node_modules/(?!@faker-js/.*)"
+  ],
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
     '\\.scss$': 'identity-obj-proxy'
