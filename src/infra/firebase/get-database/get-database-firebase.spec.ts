@@ -1,7 +1,7 @@
 import { mockSurveyList } from '@/domain/test';
 import { mockParamUrl } from '@/infra/test/mock-database-firebase';
 import faker from '@faker-js/faker';
-import { getDatabase, ref, get, child, DataSnapshot } from 'firebase/database';
+import { getDatabase, ref, get, child } from 'firebase/database';
 import { GetDatabaseFirebase } from './get-database-firebase';
 
 type SutTypes = {

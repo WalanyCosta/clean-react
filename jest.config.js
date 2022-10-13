@@ -20,13 +20,12 @@ module.exports = {
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
   transform: {
-    'node_modules/@faker-js/.+\\.(j|t)sx?$': 'ts-jest'
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
   },
-  transformIgnorePatterns: [
-    "node_modules/(?!@faker-js/.*)"
-  ],
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
-    '\\.scss$': 'identity-obj-proxy'
+    '\\.scss$': 'identity-obj-proxy',
+    '@faker-js/faker': '@faker-js/faker',
+    'firebase/database': 'firebase/database',
   }
 };

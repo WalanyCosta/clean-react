@@ -87,7 +87,7 @@ describe('Login Component', () => {
   test('should show spinner on submit', async () => {
     makeSut();
     await helper.simulateValidSubmit();
-    await expect(screen.queryByTestId('spinner-status')).toBeInTheDocument();
+    waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
   });
 
   test('should call Authentication with correct values', async () => {
@@ -105,8 +105,8 @@ describe('Login Component', () => {
 
   test('should call Authentication only once', async () => {
     const { authenticationSpy } = makeSut();
-    await helper.simulateValidSubmit();
-    await helper.simulateValidSubmit();
+    helper.simulateValidSubmit();
+    helper.simulateValidSubmit();
     waitFor(() => expect(authenticationSpy.callsCount).toBe(1));
   });
 
@@ -122,7 +122,7 @@ describe('Login Component', () => {
     const { authenticationSpy } = makeSut();
     jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(error);
     helper.simulateValidSubmit();
-    await waitFor(() => {
+    waitFor(() => {
       expect(screen.getByTestId('mainError')).toHaveTextContent(error.message);
       expect(screen.getByTestId('errorWrap').children).toHaveLength(1);
     });
@@ -131,7 +131,7 @@ describe('Login Component', () => {
   test('should calls UpdateCurrentAccount on success', async () => {
     const { authenticationSpy, setCurrentAccountMock } = makeSut();
     helper.simulateValidSubmit();
-    await waitFor(() => {
+    waitFor(() => {
       expect(setCurrentAccountMock).toHaveBeenCalledWith(authenticationSpy.account);
       expect(history.location.pathname).toBe('/');
     });

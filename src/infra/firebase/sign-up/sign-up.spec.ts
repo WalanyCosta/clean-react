@@ -21,7 +21,7 @@ type SutType ={
 const makeSut = (): SutType => {
   const mockedCreateUser = createUserWithEmailAndPassword as jest.Mock<any, any>;
   const object = jest.fn(() => faker.random.alphaNumeric());
-  const sut = new SignUp();
+  const sut = new SignUp(null);
   mockedCreateUser.mockResolvedValue({
     user: object
   });

@@ -1,12 +1,14 @@
 import { CreateUser, Response } from '@/data/protocols/firebase';
 import { AddAccountParam } from '@/domain/usecases';
+import { FirebaseApp } from 'firebase/app';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { app } from '../firebaseConfig';
 
 export class SignUp implements CreateUser<any> {
+  constructor (private readonly app: FirebaseApp) {}
+
   async signUp (param: AddAccountParam): Promise<Response<any>> {
     try {
-      const response = await createUserWithEmailAndPassword(getAuth(app), param.email, param.password);
+      const response = await createUserWithEmailAndPassword(getAuth(this.app), param.email, param.password);
       return {
         statusCode: 200,
         body: {
