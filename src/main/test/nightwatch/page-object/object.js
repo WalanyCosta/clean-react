@@ -17,6 +17,9 @@ module.exports ={
     },
     submit: {
       selector: '[data-testid="submit"]'
+    },
+    logout: {
+      selector: '[data-testid="logout"]'
     }
   },
   commands: [pageCommand]

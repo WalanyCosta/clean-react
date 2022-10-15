@@ -7,17 +7,22 @@ const simulateValidSubmit = (sut, email = 'yonelma@gmail.com', password = 'yo#45
   sut.click('@submit');
 };
 
-
 describe('SurveyList', function () {
   beforeEach(()=>{
     helper.visit(browser, 'login');
-    const surveyList = browser.page.object();
-    simulateValidSubmit(surveyList);
+    const page = browser.page.object();
+    simulateValidSubmit(page);
   })
 
   it('should present correct UserName', async function (browser) {
-    const surveyList = browser.page.object();
-    surveyList.assert.urlContains('localhost:3000');
-    helper.assertContainText(surveyList, 'userEmail', 'yonelma@gmail.com');
+   const page = browser.page.object();
+    page.assert.urlContains('localhost:3000');
+    helper.assertContainText(page, 'userEmail', 'yonelma@gmail.com');
+  });
+
+  it('should logout on logout link click', async function (browser) {
+    const page = browser.page.object();
+    page.click('@logout');
+    page.assert.urlContains('localhost:3000/login');
   });
 });
