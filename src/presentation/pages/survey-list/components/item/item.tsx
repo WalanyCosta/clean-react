@@ -16,7 +16,7 @@ const formatMonthToPTBR = (date: Date): string => {
 const SurveyItem: React.FC<Props> = ({ survey }: Props) => {
   const iconName = survey.didAnswer ? IconName.thumbUp : IconName.thumbDown;
   return (
-    <li className={Styles.surveyItemWrap} key={survey.id} >
+    <li className={Styles.surveyItemWrap}>
     <div className={Styles.surveyContent}>
       <Icon
         iconName={iconName}
