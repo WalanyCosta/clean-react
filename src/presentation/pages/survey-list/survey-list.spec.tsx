@@ -33,14 +33,18 @@ describe('SurveyList', () => {
   test('should present 4 empty items on start', async () => {
     makeSut();
     const surveyList = screen.getByTestId('survey-list');
-    expect(surveyList.querySelectorAll('li:empty')).toHaveLength(4);
-    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(surveyList.querySelectorAll('li:empty')).toHaveLength(4);
+      expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+    });
   });
 
   test('should call LoadSurveyList', async () => {
     const { loadSurveyListSpy } = makeSut();
     expect(loadSurveyListSpy.callsCount).toBe(1);
-    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+    });
   });
 
   test('should render SurveyItems on success', async () => {

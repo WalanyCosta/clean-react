@@ -101,17 +101,15 @@ describe('SignUp Component', () => {
 
   test('should show spinner on submit', async () => {
     makeSut();
-    await helper.simulateValidSubmitSignUp();
-    waitFor(async () => {
-      expect(screen.queryByTestId('spinner-status')).toBeInTheDocument();
-    });
+    helper.simulateValidSubmitSignUp();
+    await waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
   });
 
   test('should call addAccountSpy with correct values', async () => {
     const { addAccountSpy } = makeSut();
     const email = faker.internet.email();
     const password = faker.internet.password();
-    await helper.simulateValidSubmit(email, password);
+    helper.simulateValidSubmit(email, password);
     waitFor(() => {
       expect(addAccountSpy.param).toEqual({
         email,

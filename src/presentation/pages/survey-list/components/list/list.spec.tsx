@@ -14,10 +14,10 @@ const makeSut = (surveysArray = []) : void => {
 };
 
 describe('List Component', () => {
-  test('should render 4 items empty if not value on surveys', () => {
+  test('should render 4 items empty if not value on surveys', async () => {
     makeSut();
     const surveyList = screen.getByTestId('survey-list');
-    expect(surveyList.querySelectorAll('li:empty')).toHaveLength(4);
+    await waitFor(() => expect(surveyList.querySelectorAll('li:empty')).toHaveLength(4));
   });
 
   test('should render SurveyItems if have values on surveys', async () => {

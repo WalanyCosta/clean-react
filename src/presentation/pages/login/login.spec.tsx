@@ -77,7 +77,7 @@ describe('Login Component', () => {
     helper.testStatusForField('password');
   });
 
-  test('should enable submit button if form is valid', () => {
+  test('should enable submit button if form is valid', async () => {
     makeSut();
     helper.populateField('email');
     helper.populateField('password');
@@ -86,16 +86,16 @@ describe('Login Component', () => {
 
   test('should show spinner on submit', async () => {
     makeSut();
-    await helper.simulateValidSubmit();
-    waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
+    helper.simulateValidSubmit();
+    await waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
   });
 
   test('should call Authentication with correct values', async () => {
     const { authenticationSpy } = makeSut();
     const email = faker.internet.email();
     const password = faker.internet.password();
-    await helper.simulateValidSubmit(email, password);
-    waitFor(() => {
+    helper.simulateValidSubmit(email, password);
+    await waitFor(() => {
       expect(authenticationSpy.params).toEqual({
         email,
         password
@@ -107,7 +107,7 @@ describe('Login Component', () => {
     const { authenticationSpy } = makeSut();
     helper.simulateValidSubmit();
     helper.simulateValidSubmit();
-    waitFor(() => expect(authenticationSpy.callsCount).toBe(1));
+    await waitFor(() => expect(authenticationSpy.callsCount).toBe(1));
   });
 
   test('should not call Authentication if form is invalid', async () => {
