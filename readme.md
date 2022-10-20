@@ -3,7 +3,7 @@
 <img src="https://img.shields.io/badge/License-MIT-green"/>
 
 <div align="center">
-  <img src="public/img/logo.png"/>
+  <img src="public/logo.png"/>
 </div>
 
 
