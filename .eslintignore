@@ -11,3 +11,4 @@ webpack.prod.js
 firebaseConfig.js
 src/main/test/nightwatch
 tests_output
+server.js
