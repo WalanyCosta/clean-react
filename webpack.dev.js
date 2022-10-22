@@ -1,21 +1,10 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const common = require('./webpack.common');
+const { merge } = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+module.exports = merge(common, {
   mode: 'development',
-  entry: './src/main/index.tsx',
-  output: {
-    path: path.resolve(__dirname,'public/js'),
-    publicPath: './public/js',
-    filename: 'bundle.js',
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
-    alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
-  },
   module: {
     rules: [
       {
@@ -41,18 +30,24 @@ module.exports = {
   },
   devtool:'inline-source-map',
   devServer: {
-    static: './public',
+    static: {
+      directory: path.resolve(__dirname,'dist/')
+    },
     open: true,
-    hot: true,
     compress: true,
     port: 3000,
     historyApiFallback: true,
     devMiddleware: {
-      writeToDisk: true
+      index: true,
+      mimeTypes: { phtml: 'text/html' },
+      publicPath: '/dist',
+      serverSideRender: true,
+      writeToDisk: true,
     },
   },
-  plugins:[
-    new CleanWebpackPlugin(),
-    new Dotenv()
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './template.dev.html',
+    })
   ]
-}
+});

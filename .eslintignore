@@ -3,8 +3,12 @@ coverage
 husky
 .vscode
 public
-webpack.config.js
+dist
+webpack.dev.js
+webpack.common.js
+webpack.prod.js
 *.scss
 firebaseConfig.js
 src/main/test/nightwatch
 tests_output
+server.js
