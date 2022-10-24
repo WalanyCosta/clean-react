@@ -87,7 +87,7 @@ describe('Login Component', () => {
   test('should show spinner on submit', async () => {
     makeSut();
     helper.simulateValidSubmit();
-    await waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
+    waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
   });
 
   test('should call Authentication with correct values', async () => {
@@ -105,9 +105,9 @@ describe('Login Component', () => {
 
   test('should call Authentication only once', async () => {
     const { authenticationSpy } = makeSut();
-    helper.simulateValidSubmit();
-    helper.simulateValidSubmit();
-    await waitFor(() => expect(authenticationSpy.callsCount).toBe(1));
+    await helper.simulateValidSubmit();
+    await helper.simulateValidSubmit();
+    waitFor(() => expect(authenticationSpy.callsCount).toBe(1));
   });
 
   test('should not call Authentication if form is invalid', async () => {

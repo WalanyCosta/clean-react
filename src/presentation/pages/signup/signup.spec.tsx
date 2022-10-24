@@ -102,7 +102,7 @@ describe('SignUp Component', () => {
   test('should show spinner on submit', async () => {
     makeSut();
     helper.simulateValidSubmitSignUp();
-    await waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
+    waitFor(() => expect(screen.queryByTestId('spinner-status')).toBeInTheDocument());
   });
 
   test('should call addAccountSpy with correct values', async () => {
