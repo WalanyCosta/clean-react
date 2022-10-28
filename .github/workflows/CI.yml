@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -34,9 +33,11 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
-    name: 'Deploy'
-    - uses: actions/checkout@v1
-      - uses: jsmrcaga/action-netlify-deploy@master
-        with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      name: 'Deploy'
+
+      steps:
+        - uses: actions/checkout@v1
+        - uses: jsmrcaga/action-netlify-deploy@master
+          with:
+            NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+            NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
