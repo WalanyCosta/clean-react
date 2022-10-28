@@ -15,7 +15,6 @@ module.exports = {
     }
   },
   plugins:[
-    new CleanWebpackPlugin(),
-    new Dotenv()
+    new CleanWebpackPlugin()
   ]
 }
