@@ -8,6 +8,8 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  release:
+    types: ['published']
 
 jobs:
   build:
@@ -39,4 +41,5 @@ jobs:
       with:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        build_directory: './dist'
         NETLIFY_DEPLOY_TO_PROD: true
