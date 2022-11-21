@@ -1,4 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/WalanyCosta/clean-react/badge.svg?branch=master)](https://coveralls.io/github/WalanyCosta/clean-react?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/WalanyCosta/clean-react/badge.svg)](https://snyk.io/test/github/WalanyCosta/clean-react)
 [![Node.js CI](https://github.com/WalanyCosta/clean-react/actions/workflows/CI.yml/badge.svg)](https://github.com/WalanyCosta/clean-react/actions/workflows/CI.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7f5829d1-6ed3-4b3f-82cd-8f538c38561a/deploy-status)](https://app.netlify.com/sites/profound-smakager-bdfb42/deploys)
 <img src="https://img.shields.io/badge/License-MIT-green"/>
