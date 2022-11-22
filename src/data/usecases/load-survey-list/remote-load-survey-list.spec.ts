@@ -13,9 +13,6 @@ type SutTypes = {
 
 const makeSut = (url = faker.internet.url()) : SutTypes => {
   const getDatabaseSpy = new GetDatabaseSpy<RemoteLoadSurveyList.Model[]>();
-  getDatabaseSpy.response = {
-    statusCode: StatusCode.ok
-  };
   const sut = new RemoteLoadSurveyList(url, getDatabaseSpy);
   return {
     sut,
