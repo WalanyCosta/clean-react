@@ -19,8 +19,7 @@ const makeSut = (url = faker.internet.url()): SutTypes => {
 describe('RemoteLoadSurveyResult', () => {
   test('should call GetDatabase with correct URL', async () => {
     const url = faker.internet.url();
-    const getDatabaseSpy = new GetDatabaseSpy();
-    const sut = new RemoteLoadSurveyResult(getDatabaseSpy, url);
+    const { sut, getDatabaseSpy } = makeSut(url);
     await sut.load();
     expect(getDatabaseSpy.url).toBe(url);
   });
