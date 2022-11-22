@@ -1,4 +1,6 @@
+import { StatusCode } from '@/data/protocols/firebase';
 import { GetDatabaseSpy } from '@/data/test';
+import { UnexpectedError } from '@/domain/errors';
 import faker from '@faker-js/faker';
 import { RemoteLoadSurveyResult } from './remote-load-survey-result';
 
@@ -22,5 +24,14 @@ describe('RemoteLoadSurveyResult', () => {
     const { sut, getDatabaseSpy } = makeSut(url);
     await sut.load();
     expect(getDatabaseSpy.url).toBe(url);
+  });
+
+  test('should throw UnexpectedError GetDatabase returns error', async () => {
+    const { sut, getDatabaseSpy } = makeSut();
+    getDatabaseSpy.response = {
+      statusCode: StatusCode.serverError
+    };
+    const promise = sut.load();
+    await expect(promise).rejects.toThrow(new UnexpectedError());
   });
 });
