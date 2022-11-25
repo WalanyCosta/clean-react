@@ -1,5 +1,5 @@
 import { StatusCode } from '@/data/protocols/firebase';
-import { GetDatabaseSpy } from '@/data/test';
+import { GetDatabaseSpy, mockRemoteSurveyResult } from '@/data/test';
 import { UnexpectedError } from '@/domain/errors';
 import faker from '@faker-js/faker';
 import { RemoteLoadSurveyResult } from './remote-load-survey-result';
@@ -33,5 +33,20 @@ describe('RemoteLoadSurveyResult', () => {
     };
     const promise = sut.load();
     await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('should return a SurveyResult on 200', async () => {
+    const { sut, getDatabaseSpy } = makeSut();
+    const result = mockRemoteSurveyResult();
+    getDatabaseSpy.response = {
+      statusCode: StatusCode.ok,
+      body: result
+    };
+    const response = await sut.load();
+    expect(response).toEqual({
+      question: result.question,
+      answers: result.answers,
+      date: new Date(result.date)
+    });
   });
 });
