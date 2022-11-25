@@ -1,14 +1,12 @@
 export type SurveyModel = {
-  id: string,
+  id?: string,
   question: string,
-  answers?: SurveyAnswerModel[],
-  date: Date,
-  didAnswer: boolean
-}
-
-export type SurveyAnswerModel={
+  answers?: Array<{
     image?: string,
     answer: string,
     count?: number,
     percent?: number
+  }>,
+  date: Date,
+  didAnswer?: boolean
 }

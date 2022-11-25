@@ -1,6 +1,6 @@
 import { GetDatabase, StatusCode } from '@/data/protocols/firebase';
 import { UnexpectedError } from '@/domain/errors';
-import { SurveyAnswerModel, SurveyModel } from '@/domain/model';
+import { SurveyModel } from '@/domain/model';
 import { LoadSurveyList } from '@/domain/usecases/load-survey-list';
 
 export class RemoteLoadSurveyList implements LoadSurveyList {
@@ -24,7 +24,12 @@ export namespace RemoteLoadSurveyList {
   export type Model = {
     id: string,
     question: string,
-    answers: SurveyAnswerModel[],
+    answers: Array<{
+      answer: string,
+      image?: string,
+      count?: number,
+      percent?: number
+    }>,
     date: string,
     didAnswer: boolean
   };
