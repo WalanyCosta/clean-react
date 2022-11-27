@@ -5,7 +5,8 @@ export type SurveyModel = {
     image?: string,
     answer: string,
     count?: number,
-    percent?: number
+    percent?: number,
+    isCurrentAccountAnswer?: boolean
   }>,
   date: Date,
   didAnswer?: boolean
