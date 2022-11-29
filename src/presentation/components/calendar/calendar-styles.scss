@@ -1,0 +1,26 @@
+@import "../../styles/color-styles.scss";
+
+.calendarWrap{
+  display: flex;
+  flex-direction: column;
+  background-color: $primary-light;
+  color: $white;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 100px;
+  flex-shrink: 0;
+  
+  .day{
+    font-size: 40px;
+    font-weight: bold;
+  }
+  .month{
+    text-transform: lowercase;
+    margin: 0px 0px 5px;
+  }
+  .year{
+    font-size: 16px;
+  }
+}
