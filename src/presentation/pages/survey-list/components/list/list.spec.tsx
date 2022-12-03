@@ -1,15 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { SurveyContext } from '@/presentation/pages/survey-list/components';
 import List from './list';
 import { mockSurveyList } from '@/domain/test';
 
 const makeSut = (surveysArray = []) : void => {
   const state = { surveys: surveysArray };
   render(
-      <SurveyContext.Provider value={{ state }}>
-        <List />
-      </SurveyContext.Provider>
+    <List surveys={state.surveys}/>
   );
 };
 

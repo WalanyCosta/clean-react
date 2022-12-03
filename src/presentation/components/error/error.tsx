@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { SurveyContext } from '@/presentation/pages/survey-list/components';
+import React from 'react';
 import Styles from './error-styles.scss';
 
 type Props ={
