@@ -8,28 +8,32 @@ const SurveyResult: React.FC = () => {
     <div className={Styles.surveyResultWrap}>
       <Header />
       <div className={Styles.contentWrap}>
-        <hgroup>
-          <Calendar date={new Date()} className={Styles.calendarWrap} />
-          <h2>Qual é seu frameWork favorito?</h2>
-        </hgroup>
-        <FlipMove className={Styles.answerList}>
-          <li>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
-            <span className={Styles.answer}>Reactjs</span>
-            <span className={Styles.percent}>50%</span>
-          </li>
-          <li className={Styles.active}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
-            <span className={Styles.answer}>Reactjs</span>
-            <span className={Styles.percent}>50%</span>
-          </li>
-          <li>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
-            <span className={Styles.answer}>Reactjs</span>
-            <span className={Styles.percent}>50%</span>
-          </li>
-        </FlipMove>
-        <button>Voltar</button>
+        {true &&
+          <>
+            <hgroup>
+              <Calendar date={new Date()} className={Styles.calendarWrap} />
+              <h2>Qual é seu frameWork favorito?Qual é seu frameWork favorito?</h2>
+            </hgroup>
+            <FlipMove className={Styles.answerList}>
+              <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
+                <span className={Styles.answer}>Reactjs</span>
+                <span className={Styles.percent}>50%</span>
+              </li>
+              <li className={Styles.active}>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
+                <span className={Styles.answer}>Reactjs</span>
+                <span className={Styles.percent}>50%</span>
+              </li>
+              <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
+                <span className={Styles.answer}>Reactjs</span>
+                <span className={Styles.percent}>50%</span>
+              </li>
+            </FlipMove>
+            <button>Voltar</button>
+          </>
+        }
         {false && <Loading />}
       </div>
       <Footer />
