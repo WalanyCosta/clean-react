@@ -19,7 +19,7 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
   useEffect(() => {
     loadSurveyResult.load()
       .then(surveyResult => { setState(old => ({ ...old, surveyResult })); })
-      .catch();
+      .catch(error => { setState(old => ({ ...old, error: error.message, surveyResult: null })); });
   });
   return (
     <div className={Styles.surveyResultWrap}>
