@@ -1,8 +1,9 @@
 import { GetDatabase, StatusCode } from '@/data/protocols/firebase';
 import { UnexpectedError } from '@/domain/errors';
 import { SurveyModel } from '@/domain/model';
+import { LoadSurveyResult } from '@/domain/usecases/load-survey-result';
 
-export class RemoteLoadSurveyResult {
+export class RemoteLoadSurveyResult implements LoadSurveyResult {
   constructor (
     private readonly getDatabase : GetDatabase,
     private readonly url: string
