@@ -12,13 +12,13 @@ export const mockSurveyResultModel = (): SurveyModel => ({
       image: faker.image.imageUrl(),
       count: faker.datatype.number(),
       percent: faker.datatype.number(100),
-      isCurrentAccountAnswer: faker.datatype.boolean()
+      isCurrentAccountAnswer: true
     },
     {
       answer: faker.random.words(),
       count: faker.datatype.number(),
       percent: faker.datatype.number(100),
-      isCurrentAccountAnswer: faker.datatype.boolean()
+      isCurrentAccountAnswer: false
     }
   ]
 });
