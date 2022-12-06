@@ -1,5 +1,5 @@
 import React from 'react';
-import { queryAllByTestId, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import SurveyResult from './survey-result';
 import { ApiContext } from '@/presentation/context';
 import { mockAccount } from '@/domain/test';
@@ -82,6 +82,16 @@ describe('SurveyResult Component', () => {
       expect(screen.queryByTestId('question')).not.toBeInTheDocument();
       expect(screen.getByTestId('error')).toHaveTextContent(error.message);
       expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
+    });
+  });
+
+  test('should call LoadSurveyResult on reload', async () => {
+    const loadSurveyResultSpy = new LoadSurveyResultSpy();
+    jest.spyOn(loadSurveyResultSpy, 'load').mockRejectedValueOnce(new UnexpectedError());
+    makeSut(loadSurveyResultSpy);
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId('reload'));
+      expect(loadSurveyResultSpy.callsCount).toBe(1);
     });
   });
 });
