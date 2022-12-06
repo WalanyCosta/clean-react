@@ -13,14 +13,20 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
   const [state, setState] = useState({
     error: '',
     isLoading: false,
-    surveyResult: null as SurveyModel
+    surveyResult: null as SurveyModel,
+    reload: false
   });
+
+  const handReload = (): void => {
+    setState(old => ({ isLoading: false, surveyResult: null, error: '', reload: !old.reload }));
+  };
 
   useEffect(() => {
     loadSurveyResult.load()
       .then(surveyResult => { setState(old => ({ ...old, surveyResult })); })
       .catch(error => { setState(old => ({ ...old, error: error.message, surveyResult: null })); });
-  });
+  }, [state.reload]);
+
   return (
     <div className={Styles.surveyResultWrap}>
       <Header />
@@ -46,7 +52,7 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
           </>
         }
         {state.isLoading && <Loading />}
-        {state.error && <Error error={state.error} reload={() => {}} />}
+        {state.error && <Error error={state.error} reload={handReload} />}
       </div>
       <Footer />
     </div>
