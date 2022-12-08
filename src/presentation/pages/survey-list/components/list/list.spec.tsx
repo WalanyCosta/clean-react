@@ -1,12 +1,16 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import List from './list';
+import { createMemoryHistory } from 'history';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { mockSurveyList } from '@/domain/test';
 
 const makeSut = (surveysArray = []) : void => {
   const state = { surveys: surveysArray };
   render(
-    <List surveys={state.surveys}/>
+    <HistoryRouter history={createMemoryHistory()}>
+      <List surveys={state.surveys}/>
+    </HistoryRouter>
   );
 };
 
