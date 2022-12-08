@@ -6,7 +6,6 @@ import { ApiContext } from '@/presentation/context';
 import { getCurrentAccountAdapter, setCurrentAccountAdapter } from '@/main/adapters/current-account-adapter';
 import '@/presentation/styles/global-styles.scss';
 import PrivateRoute from '@/presentation/components/private-route/private-route';
-import { SurveyResult } from '@/presentation/pages';
 
 const Router : React.FC = () => {
   return (
@@ -20,7 +19,7 @@ const Router : React.FC = () => {
           <Route path="/" element={<PrivateRoute />} />
           <Route path="/signup" element={<MakeSignUp/>} />
           <Route path="/login" element={<MakeLogin/>} />
-          <Route path="/surveys" element={<SurveyResult/>} />
+          <Route path="/surveys/:id/result" element={<PrivateRoute result />} />
         </Routes>
       </BrowserRouter>
     </ApiContext.Provider>
