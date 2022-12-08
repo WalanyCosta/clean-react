@@ -3,6 +3,7 @@ import { SurveyModel } from '@/domain/model';
 import { Icon, IconName, Calendar } from '@/presentation/components';
 
 import Styles from './item-styles.scss';
+import { Link } from 'react-router-dom';
 
 type Props = {
   survey: SurveyModel;
@@ -20,7 +21,7 @@ const SurveyItem: React.FC<Props> = ({ survey }: Props) => {
       <Calendar date={survey.date} className={Styles.calendarWrap}/>
       <p data-testid="question">{survey.question}</p>
     </div>
-    <footer>Ver resultado</footer>
+    <footer><Link data-testid='link' to={`surveys/${survey.id}`}>Ver resultado</Link></footer>
   </li>
   );
 };
