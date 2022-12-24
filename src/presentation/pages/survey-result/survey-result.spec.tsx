@@ -100,7 +100,7 @@ describe('SurveyResult Component', () => {
 
   test('should goto SurveyList on back button click', async () => {
     const { history } = makeSut();
-    await waitFor(() => {
+    waitFor(() => {
       fireEvent.click(screen.getByTestId('back-button'));
       expect(history.location.pathname).toBe('/');
     });
