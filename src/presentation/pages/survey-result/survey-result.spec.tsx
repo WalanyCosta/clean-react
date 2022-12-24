@@ -3,28 +3,31 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import SurveyResult from './survey-result';
 import { ApiContext } from '@/presentation/context';
 import { mockAccount } from '@/domain/test';
-import { createMemoryHistory } from 'history';
+import { createMemoryHistory, MemoryHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { LoadSurveyResultSpy, mockSurveyResultModel } from '@/presentation/test';
 import { UnexpectedError } from '@/domain/errors';
 
 type SutTypes = {
-  loadSurveyResultSpy: LoadSurveyResultSpy
+  loadSurveyResultSpy: LoadSurveyResultSpy,
+  history: MemoryHistory
 }
 
 const makeSut = (loadSurveyResultSpy = new LoadSurveyResultSpy()) : SutTypes => {
+  const history = createMemoryHistory({ initialEntries: ['/', '/survey/any_id'] });
   render(
     <ApiContext.Provider value={{
       setCurrentAccount: jest.fn(),
       getCurrentAccount: () => mockAccount()
     }}>
-      <HistoryRouter history={createMemoryHistory()}>
+      <HistoryRouter history={history}>
         <SurveyResult loadSurveyResult={loadSurveyResultSpy} />
       </HistoryRouter>
     </ApiContext.Provider>
   );
   return {
-    loadSurveyResultSpy
+    loadSurveyResultSpy,
+    history
   };
 };
 
@@ -92,6 +95,14 @@ describe('SurveyResult Component', () => {
     await waitFor(() => {
       fireEvent.click(screen.getByTestId('reload'));
       expect(loadSurveyResultSpy.callsCount).toBe(1);
+    });
+  });
+
+  test('should goto SurveyList on back button click', async () => {
+    const { history } = makeSut();
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId('back-button'));
+      expect(history.location.pathname).toBe('/');
     });
   });
 });
