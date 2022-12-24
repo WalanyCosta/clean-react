@@ -1,9 +1,10 @@
 import { SurveyModel } from '@/domain/model';
 import faker from '@faker-js/faker';
+import { RemoteLoadSurveyResult } from '@/data/usecases';
 
-export const mockRemoteSurveyResult = (): SurveyModel => ({
+export const mockRemoteSurveyResult = (): RemoteLoadSurveyResult.Model => ({
   question: faker.random.words(18),
-  date: faker.datatype.datetime(),
+  date: faker.date.future().toISOString(),
   answers: [
     {
       answer: faker.random.words(18),
