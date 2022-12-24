@@ -4,6 +4,7 @@ import FlipMove from 'react-flip-move';
 import Styles from './survey-result-styles.scss';
 import { SurveyModel } from '@/domain/model';
 import { LoadSurveyResult } from '@/domain/usecases';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   loadSurveyResult: LoadSurveyResult
@@ -16,6 +17,8 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
     surveyResult: null as SurveyModel,
     reload: false
   });
+
+  const navigate = useNavigate();
 
   const handReload = (): void => {
     setState(old => ({ isLoading: false, surveyResult: null, error: '', reload: !old.reload }));
@@ -48,7 +51,7 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
                 </li>
               ))}
               </FlipMove>
-            <button>Voltar</button>
+            <button data-testid='back-button' onClick={() => navigate(-1)}>Voltar</button>
           </>
         }
         {state.isLoading && <Loading />}
