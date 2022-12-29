@@ -16,12 +16,11 @@
 
 ## Índice do Conteúdo
 <!--ts-->
-   * [Sobre](#Sobre)
-   * [Indice de Conteudo](#Indice-de-conteudo)
-   * [Features](#Features)
-   * [Instalação](#instalacao)
-   * [Como usar](#como-usar)
-   * [Tecnologias](#tecnologias)
+   * [Sobre](#sobre)
+   * [Indice de Conteudo](#índice-do-conteúdo)
+   * [Features](#features)
+   * [Instalação](#pré-requisitos)
+   * [Tecnologias](#🛠-tecnologias)
 <!--te-->
 
 ### Features
@@ -67,8 +66,8 @@ $ npm run dev
 - [webpack-merge]()
 - [dotenv-webpack]()
 - [clean-webpack-plugin]()
-- [mini-css-extract-plugin]()
 - [html-webpack-plugin]()
+- [mini-css-extract-plugin]()
 - [favicons-webpack-plugin]()
 - [typescript]()
 - [sass]()
@@ -87,4 +86,4 @@ $ npm run dev
 
 ## Autor
 ---
-<span style='text-align: center;'> Desenvolvido por Walany da Costa com auxilio do treinamento do Roberto Maguinho.</span>
+<span style='text-align: center;'> Desenvolvido por Walany Costa com auxilio do treinamento do Roberto Maguinho.</span>
